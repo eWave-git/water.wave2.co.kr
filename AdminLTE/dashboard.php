@@ -113,7 +113,7 @@
                         <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
                             <li class="pt-2 px-3"><h3 class="card-title">section </h3></li>
                             <li class="nav-item">
-                                <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">매일농장1-2</a>
+                                <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">매일농장1동</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">매일농장3-4</a>
@@ -139,7 +139,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     <i class="far fa-chart-bar"></i>
-                                                     시간당 음수 섭취량 (~24시간) - 1동
+                                                     시간당 음수 섭취량 (~24시간) - 오늘
                                                 </h3>
 
                                                 <div class="card-tools">
@@ -163,7 +163,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     <i class="far fa-chart-bar"></i>
-                                                    시간당 음수 섭취량 (~24시간) - 2동
+                                                    시간당 음수 섭취량 (~24시간) - 어제
                                                 </h3>
 
                                                 <div class="card-tools">
@@ -213,7 +213,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     <i class="far fa-chart-bar"></i>
-                                                    일간 음수 섭취량 (~7일) - 2동
+                                                    시간당 음수 섭취량 누적 (~24시간) - 1동
                                                 </h3>
 
                                                 <div class="card-tools">
@@ -227,6 +227,56 @@
                                             </div>
                                             <div class="card-body">
                                                 <div id="Line_Chart_4" style="height: 300px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-sm-12">
+                                        <!-- Line chart -->
+                                        <div class="card card-primary card-outline">
+                                            <div class="card-header">
+                                                <h3 class="card-title">
+                                                    <i class="far fa-chart-bar"></i>
+                                                    막대 일일 시간당 (최근 24시간)
+                                                </h3>
+
+                                                <div class="card-tools">
+                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                        <i class="fas fa-times"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div id="bar_chart_1" style="height: 300px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 col-sm-12">
+                                        <!-- Line chart -->
+                                        <div class="card card-primary card-outline">
+                                            <div class="card-header">
+                                                <h3 class="card-title">
+                                                    <i class="far fa-chart-bar"></i>
+                                                    막대 일일 시간당 (00시~24시)
+                                                </h3>
+
+                                                <div class="card-tools">
+                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                        <i class="fas fa-times"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div id="bar_chart_2" style="height: 300px;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -308,7 +358,7 @@
                                                 </div>
                                             </div>
                                             <div class="card-body">
-
+                                                <div id="Line_Chart_2" style="height: 300px;"></div>
                                             </div>
                                         </div>
                                     </div>

@@ -6,7 +6,7 @@ $query = "
         (max(data3)-ifnull(LAG(max(data3)) OVER (ORDER BY create_at, idx), 0))*10 as 1dong
     FROM water.raw_data
     WHERE board_number=3
-        AND create_at >= now() - INTERVAL 4 day
+        AND create_at >= now() - INTERVAL 7 day
     group by checkpoint
     ORDER BY idx asc;
     "; 

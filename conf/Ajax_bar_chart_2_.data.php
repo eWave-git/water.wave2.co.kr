@@ -2,53 +2,36 @@
 include_once "../connect.php";
 
 $query = "
-select
-(
-   SELECT data1
-   FROM water.raw_data
-   WHERE board_number=2
-   order by create_at desc limit 1
-   ) AS data1,
- (
-    SELECT data2
-   FROM water.raw_data
-   WHERE board_number=2
-   order by create_at desc limit 1
-   ) AS data2,
-(
-    SELECT data1
-   FROM water.raw_data
-   WHERE board_number=3
-   order by create_at desc limit 1
-   ) AS data3,
-   (
-    SELECT data2
-   FROM water.raw_data
-   WHERE board_number=3
-   order by create_at desc limit 1
-   ) AS data4
-";
+    select idx, create_at, date_format(create_at, \"%m-%d %H:00\") as checkpoint,
+    (max(data3)-ifnull(LAG(max(data3)) OVER (ORDER BY create_at, idx), 0))*10 as 1dong
+    FROM water.raw_data
+    WHERE board_number=3
+        AND create_at > current_date() - interval 1 day
+    group by checkpoint
+    ORDER BY idx asc";
+
 $result = mysqli_query($conn, $query);
 $rows = array();
-while($row = mysqli_fetch_array($result))
-    $rows[] = $row;
+$i =0;
+while($row = mysqli_fetch_array($result)) {
+    if ($i > 0) {
+        $rows[] = $row;
+    }
+    $i++;
+    if ($i>24)
+        break;
+}
 
 $watertank_arr = array();
 
 $create_at_arr = array();
 
+foreach ($rows as $k => $v) {
 
-    array_push($watertank_arr, array(0, floor($rows[0]['data1'])));
-    array_push($watertank_arr, array(1, floor($rows[0]['data2'])));
-    array_push($watertank_arr, array(2, floor($rows[0]['data3'])));
-    array_push($watertank_arr, array(3, floor($rows[0]['data4'])));
-    
+    array_push($watertank_arr, array($k, $v['1dong']));
+    array_push($create_at_arr, array($k, substr($v['checkpoint'],6,5)));
+}
 
-
-    array_push($create_at_arr, array(0, '온도1'));
-    array_push($create_at_arr, array(1, '습도1'));
-    array_push($create_at_arr, array(2, '온도2'));
-    array_push($create_at_arr, array(3, '습도2'));
     
 
 

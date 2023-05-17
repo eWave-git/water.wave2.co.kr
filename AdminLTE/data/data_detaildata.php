@@ -15,12 +15,12 @@
                     <div class="card-body">
                         <div class="form-group">
 
-                            <label for="exampleInputEmail1">장소 선택</label>
+                            <label for="exampleInputEmail1">장소선택</label>
                             <select class="custom-select rounded-0" id="md_id" name="md_id">
                                 <option value="">선택하세요.</option>
-                                <option value="301">송화</option>
-                                <option value="401">표고</option>
-                                <option value="101">매일</option>
+                                <option value="509">매일농장</option>
+                                <option value="401">-</option>
+                                <option value="101">-</option>
                             </select>
                         </div>
 
@@ -30,14 +30,13 @@
                             <label for="exampleInputEmail1">센서</label>
                             <select class="custom-select rounded-0" id="sensor" name="sensor">
                                 <option value="">선택하세요.</option>
-                                <option value="data1">온도</option>
-                                <option value="data2">습도</option>
-                                <option value="data3">co2</option>
-                                <option value="data4">조도</option>
+                                <option value="1dong">1동</option>
+                                <option value="data2">2동</option>
+                                <option value="data3">3동</option>
+                                <option value="data4">-</option>
                                 <option value="data1">-</option>
                                 <option value="data1">-</option>
                                 <option value="data1">-</option>
-                                <option value="bar1">bar1</option>
                             </select>
                         </div>
 
@@ -107,10 +106,10 @@
                 dataType: 'json',
                 success: function (data) {
                     if (data.pay_load.datatype == "bar1") {
-                        alert("1"+data.pay_load.datatype);
+                        //alert("1"+data.pay_load.datatype);
                         update_type_2(data,data.pay_load.datatype)
                     } else {
-                        alert("2"+data.pay_load.datatype);
+                        //alert("2"+data.pay_load.datatype);
                         update_type_1(data,data.pay_load.datatype)
                     }
 

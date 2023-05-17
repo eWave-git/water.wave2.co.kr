@@ -9,23 +9,15 @@ $s = explode(" - ",$sdateAtedate );
 $sdate = $s[0]." 00:00";
 $edate = $s[1]." 23:59";
 
-//"TDSIN"
-//"TDSOUT"
-//"PRESSUREIN"
-//"PRESSUREOUT"
-//"WATERIN"
-//"WATEROUT"
-//"THROUGHPUT"
-//"POWER"
 
-if ($sensor == "data1") {
+if ($sensor == "1dong") {
     $query = "
         select
-            DATE_FORMAT(create_at, '%Y-%m-%d %H:%i') as DATE,
-            data1
-        from water.raw_data
+            DATE_FORMAT(create_at, '%m-%d %H:00') as DATE,
+            data3
+        from water.raw_data 
         where create_at >= '{$sdate}' and create_at <= '{$edate}' 
-            and board_number =2 
+            and board_number =3 
         order by DATE asc
     ";
 
@@ -38,8 +30,8 @@ if ($sensor == "data1") {
     $create_at_arr = array();
 
     foreach ($rows as $k => $v) {
-        array_push($tds_in_arr, array($k, floor($v['data1'])));
-        array_push($create_at_arr, array($k, substr($v['DATE'],0,16)));
+        array_push($tds_in_arr, array($k, floor($v['data3'])));
+        array_push($create_at_arr, array($k, substr($v['DATE'],6,5)));
     }
 
     $tds_in = array(
