@@ -2,13 +2,14 @@
 include_once "../connect.php";
 
 $query = "
-    SELECT idx, date_format(create_at, \"%m-%d %H:00\") as checkpoint,
-        (max(data3)-ifnull(LAG(max(data3)) OVER (ORDER BY create_at, idx), 0))*10 as 1dong
-    FROM water.raw_data
-    WHERE board_number=3
-        AND create_at >= now() - INTERVAL 24 hour
-    group by checkpoint
-    ORDER BY idx asc;
+        SELECT idx, create_at, 
+            DATE_FORMAT(create_at, \"%m-%d %H:00\") as DF,
+            (MAX(IF(board_number=3, data3, NULL)) - MIN(IF(board_number=3, data3, NULL)) )*10 as room_1,
+            SUM((MAX(IF(board_number=3, data3, NULL)) - MIN(IF(board_number=3, data3, NULL)) )*10) OVER(order by create_at) AS sum_room_1
+        FROM water.raw_data
+        where create_at < current_date() and create_at > current_date() - interval 1 day
+        group by DF
+        order by idx asc;
     "; 
 //create_at >= now() - INTERVAL 30 minute
 $result = mysqli_query($conn, $query);
@@ -31,9 +32,9 @@ $throughput_arr = array();
 $create_at_arr = array();
 
 foreach ($rows as $k => $v) {
-    array_push($throughput_arr, array($k, $v['1dong']));
+    array_push($throughput_arr, array($k, $v['sum_room_1']));
     //array_push($throughput_arr, array($k, floor($v['data3'])));
-    array_push($create_at_arr, array($k, substr($v['checkpoint'],5,3)));
+    array_push($create_at_arr, array($k, substr($v['DF'],5,3)));
 }
 
 $throughput = array(
