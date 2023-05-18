@@ -139,7 +139,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     <i class="far fa-chart-bar"></i>
-                                                     시간당 음수 섭취량 (~24시간) - 오늘
+                                                    1: 오늘 음수 섭취량 시간대별 그래프
                                                 </h3>
 
                                                 <div class="card-tools">
@@ -163,7 +163,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     <i class="far fa-chart-bar"></i>
-                                                    시간당 음수 섭취량 (~24시간) - 어제
+                                                    2: 전일 음수 섭취량 시간대별 그래프
                                                 </h3>
 
                                                 <div class="card-tools">
@@ -189,7 +189,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     <i class="far fa-chart-bar"></i>
-                                                    일간 음수 섭취량 (~7일) - 1동
+                                                    3: 입식일부터 1일 음수 섭취량 그래프 (날짜별 별도/증가추세 보기)
                                                 </h3>
 
                                                 <div class="card-tools">
@@ -213,7 +213,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     <i class="far fa-chart-bar"></i>
-                                                    시간당 음수 섭취량 누적 (~24시간) - 1동
+                                                    4: 어제 0시~24시 음수 섭취량 누적 그래프 (오늘 그래프와 비교 필요하겠다.)
                                                 </h3>
 
                                                 <div class="card-tools">
@@ -239,7 +239,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     <i class="far fa-chart-bar"></i>
-                                                    막대 일일 시간당 (최근 24시간)
+                                                    5: 1번 그래프 막대로 변형 (최근 24시간)
                                                 </h3>
 
                                                 <div class="card-tools">
@@ -263,7 +263,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     <i class="far fa-chart-bar"></i>
-                                                    막대 일일 시간당 (00시~24시)
+                                                    6: 0시부터 24시간 그래프 어제
                                                 </h3>
 
                                                 <div class="card-tools">
