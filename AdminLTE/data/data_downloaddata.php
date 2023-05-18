@@ -25,8 +25,8 @@ include_once "../connect.php";
                                 <label for="exampleInputEmail1">농장명</label>
                                 <select class="custom-select rounded-0" id="md_id" name="md_id">
                                     <option value="">선택하세요.</option>
-                                    <option value="101">송화</option>
-                                    <option value="9999">전체</option>
+                                    <option value="509">매일</option>
+                                    <option value="9999">-</option>
                                 </select>
                             </div>
 
@@ -36,15 +36,14 @@ include_once "../connect.php";
                                 <label for="exampleInputEmail1">센서</label>
                                 <select class="custom-select rounded-0" id="sensor" name="sensor">
                                     <option value="">선택하세요.</option>
-                                    <option value="data1">온도</option>
-                                    <option value="TDSOUT">TDS OUT</option>
-                                    <option value="PRESSUREIN">압력 IN</option>
-                                    <option value="PRESSUREOUT">압력 OUT</option>
-                                    <option value="WATERIN">유량 IN</option>
-                                    <option value="WATEROUT">유량 OUT</option>
-                                    <option value="THROUGHPUT">수처리량</option>
-                                    <option value="POWER">전력사용량</option>
-                                    <option value="dataAll">전체</option>
+                                    <option value="sum_room1">1동 누적</option>
+                                    <option value="time_room1">1동 시간대별</option>
+                                    <option value="sum_room2">2동 누적</option>
+                                    <option value="time_room2">2동 시간대별</option>
+                                    <option value="sum_room3">3동 누적</option>
+                                    <option value="time_room3">3동 시간대별</option>
+                                    <option value="sum_dataAll">전체 누적</option>
+                                    <option value="time_dataAll">전체 시간대별</option>
                                 </select>
                             </div>
 

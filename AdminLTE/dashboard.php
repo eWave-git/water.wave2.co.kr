@@ -116,10 +116,10 @@
                                 <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">매일농장1동</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">매일농장3-4</a>
+                                <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">매일농장2동</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="custom-tabs-two-messages-tab" data-toggle="pill" href="#custom-tabs-two-messages" role="tab" aria-controls="custom-tabs-two-messages" aria-selected="false">새송이버섯</a>
+                                <a class="nav-link" id="custom-tabs-two-messages-tab" data-toggle="pill" href="#custom-tabs-two-messages" role="tab" aria-controls="custom-tabs-two-messages" aria-selected="false">매일농장3동</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="custom-tabs-two-settings-tab" data-toggle="pill" href="#custom-tabs-two-settings" role="tab" aria-controls="custom-tabs-two-settings" aria-selected="false">-</a>
@@ -293,7 +293,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     <i class="far fa-chart-bar"></i>
-                                                    시간당 음수 섭취량 (~24시간) - 3동
+                                                    테스트합니다. 21번 그래프
                                                 </h3>
 
                                                 <div class="card-tools">
@@ -306,7 +306,7 @@
                                                 </div>
                                             </div>
                                             <div class="card-body">
-                                                <div id="Line_Chart_1" style="height: 300px;"></div>
+                                                <div id="Line_Chart_21" style="height: 300px;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -810,6 +810,106 @@
             const dataset = _data.pay_load.dataset
 
             $.plot('#Line_Chart_4', [dataset['throughput']], {
+                grid  : {
+                    hoverable  : true,
+                    borderColor: '#f3f3f3',
+                    borderWidth: 1,
+                    tickColor  : '#f3f3f3',
+                },
+                series: {
+                    shadowSize: 0,
+                    lines     : {
+                        show: true
+                    },
+                    points    : {
+                        show: false
+                    }
+                },
+                lines : {
+                    fill : false,
+                    color: ['#3c8dbc', '#f56954']
+                },
+                yaxis : {
+                    show: true
+                },
+
+                xaxis : {
+                    ticks: _data.pay_load.create_at,
+                    show: true
+                }
+            })
+        }
+
+                Get_Line_Chart_4_Data()
+
+        function Get_Line_Chart_4_Data() {
+            $.ajaxSetup({ cache: false });
+            $.ajax({
+                url: "../conf/Ajax_Line_Chart_4.data.php",
+                dataType: 'json',
+                success: function (data) {
+                    _Line_Chart_4_update(data)
+                },
+                error: function () {
+                    // setTimeout(GetData, updateInterval);
+                }
+            });
+        }
+
+        function _Line_Chart_4_update(_data) {
+            const dataset = _data.pay_load.dataset
+
+            $.plot('#Line_Chart_4', [dataset['throughput']], {
+                grid  : {
+                    hoverable  : true,
+                    borderColor: '#f3f3f3',
+                    borderWidth: 1,
+                    tickColor  : '#f3f3f3',
+                },
+                series: {
+                    shadowSize: 0,
+                    lines     : {
+                        show: true
+                    },
+                    points    : {
+                        show: false
+                    }
+                },
+                lines : {
+                    fill : false,
+                    color: ['#3c8dbc', '#f56954']
+                },
+                yaxis : {
+                    show: true
+                },
+
+                xaxis : {
+                    ticks: _data.pay_load.create_at,
+                    show: true
+                }
+            })
+        }
+
+        Get_Line_Chart_21_Data()
+
+        function Get_Line_Chart_21_Data() {
+            $.ajaxSetup({ cache: false });
+            $.ajax({
+                url: "../conf/Ajax_Line_Chart_21.data.php",
+                dataType: 'json',
+                success: function (data) {
+                    _Line_Chart_21_update(data)
+                },
+                error: function () {
+                    // setTimeout(GetData, updateInterval);
+                }
+            });
+        }
+
+        function _Line_Chart_21_update(_data) {
+            const dataset = _data.pay_load.dataset
+
+            $.plot('#Line_Chart_21', [dataset['throughput']], {
                 grid  : {
                     hoverable  : true,
                     borderColor: '#f3f3f3',
