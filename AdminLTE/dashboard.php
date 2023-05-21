@@ -1,5 +1,11 @@
 <?php
-    $sql1 = "select * from water.raw_data where address = 509 and board_number=3 order by create_at desc limit 1";
+    $sql1 = "select *, 
+            round(1.8 * data1 + 32 -0.55*(1-data2/100)*(1.8*data1-26),0) as data8 
+            from water.raw_data 
+            where address = 509 and board_number=3 
+            order by create_at 
+            desc limit 1";
+
     $result1 = mysqli_query($conn, $sql1);
     $row1 = mysqli_fetch_array($result1);
 
@@ -58,11 +64,11 @@
 <!--                    <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>-->
 
                     <div class="info-box-content">
-                        <span class="info-box-text">온도</span>
-                        <span class="info-box-number"><?php echo $row1['data1'];?> °C </span>
+                        <span class="info-box-text">THI 지수</span>
+                        <span class="info-box-number"><?php echo $row1['data8'];?> Point </span>
 
                         <div class="progress">
-                            <div class="progress-bar" style="width: <?php echo $row1['data1'];?> %"></div>
+                            <div class="progress-bar" style="width: <?php echo $row1['data8'];?>%"></div>
                         </div>
                         <span class="progress-description">
                             조회 시점 : <?php echo substr($row1['create_at'],5,11);?>
@@ -77,7 +83,7 @@
 <!--                    <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>-->
 
                     <div class="info-box-content">
-                        <span class="info-box-text">습도</span>
+                        <span class="info-box-text">환경 종합 상태</span>
                         <span class="info-box-number"><?php echo $row1['data2'];?> %</span>
 
                         <div class="progress">
@@ -116,7 +122,7 @@
                                 <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">매일농장1동</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">매일농장2동</a>
+                                <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">230521 수정중</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" id="custom-tabs-two-messages-tab" data-toggle="pill" href="#custom-tabs-two-messages" role="tab" aria-controls="custom-tabs-two-messages" aria-selected="false">매일농장3동</a>
@@ -293,7 +299,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     <i class="far fa-chart-bar"></i>
-                                                    테스트합니다. 21번 그래프
+                                                    2-1: 입식일 이후 1동 시간대별 평균 그래프 (5-13일부터)
                                                 </h3>
 
                                                 <div class="card-tools">
@@ -317,7 +323,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     <i class="far fa-chart-bar"></i>
-                                                    시간당 음수 섭취량 (~24시간) - 4동
+                                                    2-2 : 오늘 1동 시간대별 평균 그래프
                                                 </h3>
 
                                                 <div class="card-tools">
@@ -330,14 +336,11 @@
                                                 </div>
                                             </div>
                                             <div class="card-body">
-                                                <div id="Line_Chart_2" style="height: 300px;"></div>
+                                                <div id="Line_Chart_22" style="height: 300px;"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                               
-
                                 <div class="row">
                                     <div class="col-lg-6 col-sm-12">
                                         <!-- Line chart -->
@@ -345,7 +348,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     <i class="far fa-chart-bar"></i>
-
+                                                    2-3: 2-3: 막대 입식 이후 일간섭취량
                                                 </h3>
 
                                                 <div class="card-tools">
@@ -358,18 +361,18 @@
                                                 </div>
                                             </div>
                                             <div class="card-body">
-                                                <div id="Line_Chart_2" style="height: 300px;"></div>
+                                                <div id="bar_chart_21" style="height: 300px;"></div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="col-lg-6 col-sm-12">
-                                        <!-- Line chart -->
+                                     <!-- Line chart-->
                                         <div class="card card-primary card-outline">
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     <i class="far fa-chart-bar"></i>
-
+                                                    2-4: 일간 통계 증감량 (꺽은선을 그려야 할듯 ㅠㅜ)
                                                 </h3>
 
                                                 <div class="card-tools">
@@ -382,13 +385,11 @@
                                                 </div>
                                             </div>
                                             <div class="card-body">
-
+                                                <div id="bar_chart_22" style="height: 300px;"></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-
                             </div>
 
                             <!-- 새송이버섯 -->
@@ -863,7 +864,7 @@
                 grid  : {
                     hoverable  : true,
                     borderColor: '#f3f3f3',
-                    borderWidth: 1,
+                    borderWidth: 10,
                     tickColor  : '#f3f3f3',
                 },
                 series: {
@@ -909,7 +910,57 @@
         function _Line_Chart_21_update(_data) {
             const dataset = _data.pay_load.dataset
 
-            $.plot('#Line_Chart_21', [dataset['throughput']], {
+            $.plot('#Line_Chart_21', [dataset['pressure_in'],dataset['pressure_out']], {
+                grid  : {
+                    hoverable  : true,
+                    borderColor: '#000000',
+                    borderWidth: 1,
+                    tickColor  : '#ffffff',
+                },
+                series: {
+                    shadowSize: 0,
+                    lines     : {
+                        show: true
+                    },
+                    points    : {
+                        show: false
+                    }
+                },
+                lines : {
+                    fill : false,
+                    color: ['#3c8dbc', '#f56954']
+                },
+                yaxis : {
+                    show: true
+                },
+
+                xaxis : {
+                    ticks: _data.pay_load.create_at,
+                    show: true
+                }
+            })
+        }
+
+        Get_Line_Chart_22_Data()
+
+        function Get_Line_Chart_22_Data() {
+            $.ajaxSetup({ cache: false });
+            $.ajax({
+                url: "../conf/Ajax_Line_Chart_22.data.php",
+                dataType: 'json',
+                success: function (data) {
+                    _Line_Chart_22_update(data)
+                },
+                error: function () {
+                    // setTimeout(GetData, updateInterval);
+                }
+            });
+        }
+
+        function _Line_Chart_22_update(_data) {
+            const dataset = _data.pay_load.dataset
+
+            $.plot('#Line_Chart_22', [dataset['pressure_in'],dataset['pressure_out']], {
                 grid  : {
                     hoverable  : true,
                     borderColor: '#f3f3f3',
@@ -939,6 +990,8 @@
                 }
             })
         }
+
+
 
         Get_bar_chart_1_Data()
 
@@ -997,6 +1050,80 @@
             const dataset = _data.pay_load.dataset
 
             $.plot('#bar_chart_2', [dataset['watertank']], {
+                grid  : {
+                    borderWidth: 1,
+                    borderColor: '#f3f3f3',
+                    tickColor  : '#f3f3f3'
+                },
+                series: {
+                    bars: {
+                        show: true, barWidth: 0.5, align: 'center',
+                    },
+                },
+                colors: ['#3c8dbc'],
+                xaxis : {
+                    ticks: _data.pay_load.create_at,
+                }
+            })
+        }
+
+        Get_bar_chart_21_Data()
+
+        function Get_bar_chart_21_Data() {
+            $.ajaxSetup({ cache: false });
+            $.ajax({
+                url: "../conf/Ajax_bar_chart_21_.data.php",
+                dataType: 'json',
+                success: function (data) {
+                    _bar_chart_21_update(data)
+                },
+                error: function () {
+                    // setTimeout(GetData, updateInterval);
+                }
+            });
+        }
+
+        function _bar_chart_21_update(_data) {
+            const dataset = _data.pay_load.dataset
+
+            $.plot('#bar_chart_21', [dataset['watertank']], {
+                grid  : {
+                    borderWidth: 1,
+                    borderColor: '#f3f3f3',
+                    tickColor  : '#f3f3f3'
+                },
+                series: {
+                    bars: {
+                        show: true, barWidth: 0.5, align: 'center',
+                    },
+                },
+                colors: ['#3c8dbc'],
+                xaxis : {
+                    ticks: _data.pay_load.create_at,
+                }
+            })
+        }
+
+        Get_bar_chart_22_Data()
+
+        function Get_bar_chart_22_Data() {
+            $.ajaxSetup({ cache: false });
+            $.ajax({
+                url: "../conf/Ajax_bar_chart_22_.data.php",
+                dataType: 'json',
+                success: function (data) {
+                    _bar_chart_22_update(data)
+                },
+                error: function () {
+                    // setTimeout(GetData, updateInterval);
+                }
+            });
+        }
+
+        function _bar_chart_22_update(_data) {
+            const dataset = _data.pay_load.dataset
+
+            $.plot('#bar_chart_22', [dataset['watertank']], {
                 grid  : {
                     borderWidth: 1,
                     borderColor: '#f3f3f3',
