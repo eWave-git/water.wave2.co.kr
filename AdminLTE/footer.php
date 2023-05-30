@@ -53,6 +53,7 @@
 <script src="plugins/flot/plugins/jquery.flot.resize.js"></script>
 <!-- FLOT PIE PLUGIN - also used to draw donut charts -->
 <script src="plugins/flot/plugins/jquery.flot.pie.js"></script>
+<script src="plugins/flot/plugins/jquery.flot.tooltip.js"></script>
 
 <!-- Bootstrap Switch -->
 <script src="plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
@@ -60,12 +61,12 @@
 <script>
   $(function () {
     $("#example1").DataTable({
-      "searching": true,
+      "searching": false,
       "ordering": false,
       "responsive": true,
       "lengthChange": false,
       "autoWidth": false,
-      "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+      //"buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
     }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     $('#example2').DataTable({
       "paging": true,

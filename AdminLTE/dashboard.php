@@ -18,40 +18,40 @@
 <section class="content">
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
-        농장환경 <!------------------------------------------------------------------------------------------------------------- -->
+        동별 온습도 <!------------------------------------------------------------------------------------------------------------- -->
         <div class="row">
-            <div class="col-lg-3 col-12">
+            <div class="col-lg-auto col-12">
                 <div class="info-box bg-info">
 <!--                    <span class="info-box-icon"><i class="far fa-bookmark"></i></span>-->
 
                     <div class="info-box-content">
-                        <span class="info-box-text">온도</span>
+                        <span class="info-box-text">1동 온도</span>
                         <span class="info-box-number"><?php echo $row1['data1'];?> °C</span>
 
                         <div class="progress">
                             <div class="progress-bar" style="width: <?php echo $row1['data1'];?>%"></div>
                         </div>
                         <span class="progress-description">
-                            조회 시점 : <?php echo substr($row1['create_at'],5,11);?> <!-- ($row['create_at'],11,8) -->
+                            Last : <?php echo substr($row1['create_at'],5,11);?> <!-- ($row['create_at'],11,8) -->
                         </span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
             </div>
             <!-- ./col -->
-            <div class="col-lg-3 col-12">
-                <div class="info-box bg-success">
+            <div class="col-lg-auto col-12">
+                <div class="info-box bg-info">
 <!--                    <span class="info-box-icon"><i class="far fa-thumbs-up"></i></span>-->
 
                     <div class="info-box-content">
-                        <span class="info-box-text">습도</span>
+                        <span class="info-box-text">1동 습도</span>
                         <span class="info-box-number"><?php echo $row1['data2'];?> %</span>
 
                         <div class="progress">
                             <div class="progress-bar" style="width: <?php echo $row1['data2'];?>%"></div>
                         </div>
                         <span class="progress-description">
-                            조회 시점 : <?php echo substr($row1['create_at'],5,11);?>
+                            Last : <?php echo substr($row1['create_at'],5,11);?>
                         </span>
                     </div>
                     <!-- /.info-box-content -->
@@ -59,38 +59,122 @@
                 <!-- /.info-box -->
             </div>
             <!-- ./col -->
-            <div class="col-lg-3 col-12">
-                <div class="info-box bg-warning">
+            <div class="col-lg-auto col-12">
+                <div class="info-box bg-info">
 <!--                    <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>-->
 
                     <div class="info-box-content">
-                        <span class="info-box-text">THI 지수</span>
+                        <span class="info-box-text">1동 THI</span>
                         <span class="info-box-number"><?php echo $row1['data8'];?> Point </span>
 
                         <div class="progress">
                             <div class="progress-bar" style="width: <?php echo $row1['data8'];?>%"></div>
                         </div>
                         <span class="progress-description">
-                            조회 시점 : <?php echo substr($row1['create_at'],5,11);?>
+                            Last : <?php echo substr($row1['create_at'],5,11);?>
                         </span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>
             </div>
             <!-- ./col -->
-            <div class="col-lg-3 col-12">
-                <div class="info-box bg-danger">
+            <div class="col-lg-auto col-12">
+                <div class="info-box bg-success">
 <!--                    <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>-->
-
                     <div class="info-box-content">
-                        <span class="info-box-text">환경 종합 상태</span>
+                        <span class="info-box-text">2동 온도</span>
                         <span class="info-box-number"><?php echo $row1['data2'];?> %</span>
 
                         <div class="progress">
                             <div class="progress-bar" style="width: <?php echo $row1['data2'];?>"></div>
                         </div>
                         <span class="progress-description">
-                            조회 시점 : <?php echo substr($row1['create_at'],5,11);?>
+                            Last : <?php echo substr($row1['create_at'],5,11);?>
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </div>
+            <div class="col-lg-auto col-12">
+                <div class="info-box bg-success">
+<!--                    <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>-->
+                    <div class="info-box-content">
+                        <span class="info-box-text">2동 습도</span>
+                        <span class="info-box-number"><?php echo $row1['data2'];?> %</span>
+
+                        <div class="progress">
+                            <div class="progress-bar" style="width: <?php echo $row1['data2'];?>"></div>
+                        </div>
+                        <span class="progress-description">
+                            Last : <?php echo substr($row1['create_at'],5,11);?>
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </div>
+            <div class="col-lg-auto col-12">
+                <div class="info-box bg-success">
+<!--                    <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>-->
+                    <div class="info-box-content">
+                        <span class="info-box-text">2동 THI</span>
+                        <span class="info-box-number"><?php echo $row1['data2'];?> %</span>
+
+                        <div class="progress">
+                            <div class="progress-bar" style="width: <?php echo $row1['data2'];?>"></div>
+                        </div>
+                        <span class="progress-description">
+                            Last : <?php echo substr($row1['create_at'],5,11);?>
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </div>
+            <div class="col-lg-auto col-12">
+                <div class="info-box bg-warning">
+<!--                    <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>-->
+                    <div class="info-box-content">
+                        <span class="info-box-text">3동 온도</span>
+                        <span class="info-box-number"><?php echo $row1['data2'];?> %</span>
+
+                        <div class="progress">
+                            <div class="progress-bar" style="width: <?php echo $row1['data2'];?>"></div>
+                        </div>
+                        <span class="progress-description">
+                            Last : <?php echo substr($row1['create_at'],5,11);?>
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </div>
+            <div class="col-lg-auto col-12">
+                <div class="info-box bg-warning">
+<!--                    <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>-->
+                    <div class="info-box-content">
+                        <span class="info-box-text">3동 습도</span>
+                        <span class="info-box-number"><?php echo $row1['data2'];?> %</span>
+
+                        <div class="progress">
+                            <div class="progress-bar" style="width: <?php echo $row1['data2'];?>"></div>
+                        </div>
+                        <span class="progress-description">
+                            Last : <?php echo substr($row1['create_at'],5,11);?>
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+            </div>
+            <div class="col-lg-auto col-12">
+                <div class="info-box bg-warning">
+<!--                    <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>-->
+                    <div class="info-box-content">
+                        <span class="info-box-text">3동 THI</span>
+                        <span class="info-box-number"><?php echo $row1['data2'];?> %</span>
+
+                        <div class="progress">
+                            <div class="progress-bar" style="width: <?php echo $row1['data2'];?>"></div>
+                        </div>
+                        <span class="progress-description">
+                            Last : <?php echo substr($row1['create_at'],5,11);?>
                         </span>
                     </div>
                     <!-- /.info-box-content -->
@@ -103,9 +187,8 @@
     </div>
         <!-- /.row -->
 
-        <!-- Main row -->        <!-- Main row -->        <!-- Main row -->        <!-- Main row -->        <!-- Main row -->        <!-- Main row -->        <!-- Main row -->        <!-- Main row -->
-
-
+        <!-- Main row bg-info bg-success bg-warning bg-danger-->        <!-- Main row -->        <!-- Main row -->        <!-- Main row -->        <!-- Main row -->        <!-- Main row -->        <!-- Main row -->        <!-- Main row -->
+        
 
 
 
@@ -675,6 +758,10 @@
                         show: false
                     }
                 },
+                tooltip: {
+                  show:true,
+                  content: "섭취량 : %yL<br /> 시간 : %x"
+                },
                 lines : {
                     fill : false,
                     color: ['#3c8dbc', '#f56954']
@@ -726,6 +813,10 @@
                         show: false
                     }
                 },
+                tooltip: {
+                    show:true,
+                    content: "섭취량 : %yL<br /> 시간 : %x"
+                },
                 lines : {
                     fill : false,
                     color: ['#3c8dbc', '#f56954']
@@ -775,6 +866,10 @@
                     points    : {
                         show: false
                     }
+                },
+                tooltip: {
+                    show:true,
+                    content: "섭취량 : %yL<br /> 시간 : %x"
                 },
                 lines : {
                     fill : false,
@@ -826,55 +921,9 @@
                         show: false
                     }
                 },
-                lines : {
-                    fill : false,
-                    color: ['#3c8dbc', '#f56954']
-                },
-                yaxis : {
-                    show: true
-                },
-
-                xaxis : {
-                    ticks: _data.pay_load.create_at,
-                    show: true
-                }
-            })
-        }
-
-                Get_Line_Chart_4_Data()
-
-        function Get_Line_Chart_4_Data() {
-            $.ajaxSetup({ cache: false });
-            $.ajax({
-                url: "../conf/Ajax_Line_Chart_4.data.php",
-                dataType: 'json',
-                success: function (data) {
-                    _Line_Chart_4_update(data)
-                },
-                error: function () {
-                    // setTimeout(GetData, updateInterval);
-                }
-            });
-        }
-
-        function _Line_Chart_4_update(_data) {
-            const dataset = _data.pay_load.dataset
-
-            $.plot('#Line_Chart_4', [dataset['throughput']], {
-                grid  : {
-                    hoverable  : true,
-                    borderColor: '#f3f3f3',
-                    borderWidth: 10,
-                    tickColor  : '#f3f3f3',
-                },
-                series: {
-                    shadowSize: 0,
-                    lines     : {
-                        show: true
-                    },
-                    points    : {
-                        show: false
-                    }
+                tooltip: {
+                    show:true,
+                    content: "섭취량 : %yL<br /> 시간 : %x"
                 },
                 lines : {
                     fill : false,
@@ -890,6 +939,7 @@
                 }
             })
         }
+
 
         Get_Line_Chart_21_Data()
 
@@ -913,9 +963,9 @@
             $.plot('#Line_Chart_21', [dataset['pressure_in'],dataset['pressure_out']], {
                 grid  : {
                     hoverable  : true,
-                    borderColor: '#000000',
+                    borderColor: '#f3f3f3',
                     borderWidth: 1,
-                    tickColor  : '#ffffff',
+                    tickColor  : '#f3f3f3',
                 },
                 series: {
                     shadowSize: 0,
@@ -925,6 +975,10 @@
                     points    : {
                         show: false
                     }
+                },
+                tooltip: {
+                    show:true,
+                    content: "섭취량 : %yL<br /> 시간 : %x"
                 },
                 lines : {
                     fill : false,
