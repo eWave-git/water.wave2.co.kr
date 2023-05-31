@@ -9,9 +9,9 @@ if ($_REQUEST['relay'] == 'relay1') {
     $relay2 = $row['relay2'];
 
     if ($_REQUEST['do_work'] == 'true') {
-        $sql = "insert ewavetest.control_data set create_at=now(), address='99999999', board_type='4', board_number='3', type='relay1', relay1='1', relay2='{$relay2}' ";
+        $sql = "insert ewavetest.control_data set create_at=now(), address='99999999', board_type='4', board_number='4', type='relay1', relay1='1', relay2='{$relay2}' ";
     } else if ($_REQUEST['do_work'] == 'false') {
-        $sql = "insert ewavetest.control_data set create_at=now(), address='99999999', board_type='4', board_number='3', type='relay1', relay1='0', relay2='{$relay2}' ";
+        $sql = "insert ewavetest.control_data set create_at=now(), address='99999999', board_type='4', board_number='4', type='relay1', relay1='0', relay2='{$relay2}' ";
     }
 
     mysqli_query($conn, $sql);
@@ -24,9 +24,9 @@ if ($_REQUEST['relay'] == 'relay1') {
     $relay1 = $row['relay1'];
 
     if ($_REQUEST['do_work'] == 'true') {
-        $sql = "insert ewavetest.control_data set create_at=now(), address='99999999', board_type='4', board_number='3', type='relay2',  relay2='1', relay1='{$relay1}' ";
+        $sql = "insert ewavetest.control_data set create_at=now(), address='99999999', board_type='4', board_number='4', type='relay2',  relay2='1', relay1='{$relay1}' ";
     } else if ($_REQUEST['do_work'] == 'false') {
-        $sql = "insert ewavetest.control_data set create_at=now(), address='99999999', board_type='4', board_number='3', type='relay2', relay2='0', relay1='{$relay1}' ";
+        $sql = "insert ewavetest.control_data set create_at=now(), address='99999999', board_type='4', board_number='4', type='relay2', relay2='0', relay1='{$relay1}' ";
     }
     mysqli_query($conn, $sql);
 }
