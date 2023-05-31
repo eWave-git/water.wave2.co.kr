@@ -228,7 +228,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     <i class="far fa-chart-bar"></i>
-                                                    1: 오늘 음수 섭취량 시간대별 그래프
+                                                    1: 오늘 음수섭취 now() - INTERVAL 24 hour
                                                 </h3>
 
                                                 <div class="card-tools">
@@ -252,7 +252,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     <i class="far fa-chart-bar"></i>
-                                                    2: 전일 음수 섭취량 시간대별 그래프
+                                                    2: 전일 음수 섭취 INTERVAL 24 hour - INTERVAL 48 hour
                                                 </h3>
 
                                                 <div class="card-tools">
@@ -278,7 +278,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     <i class="far fa-chart-bar"></i>
-                                                    3: 입식일부터 1일 음수 섭취량 그래프 (날짜별 별도/증가추세 보기)
+                                                    3: 입식일 이후 음수 섭취
                                                 </h3>
 
                                                 <div class="card-tools">
@@ -302,7 +302,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     <i class="far fa-chart-bar"></i>
-                                                    4: 어제 0시~24시 음수 섭취량 누적 그래프 (오늘 그래프와 비교 필요하겠다.)
+                                                    4: 전일 음수 섭취 누적
                                                 </h3>
 
                                                 <div class="card-tools">
@@ -328,7 +328,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     <i class="far fa-chart-bar"></i>
-                                                    5: 1번 그래프 막대로 변형 (최근 24시간)
+                                                    5: 평균 시간당 섭취량 (~입식이후)
                                                 </h3>
 
                                                 <div class="card-tools">
@@ -341,7 +341,8 @@
                                                 </div>
                                             </div>
                                             <div class="card-body">
-                                                <div id="bar_chart_1" style="height: 300px;"></div>
+                                                <!-- <div id="bar_chart_1" style="height: 300px;"></div> -->
+                                                <div id="Line_Chart_21" style="height: 300px;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -522,7 +523,7 @@
                                                 </div>
                                             </div>
                                             <div class="card-body">
-
+                                                <div id="bar_chart_21" style="height: 300px;"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -644,10 +645,87 @@
                 </div>
             </div>
 
-        </div>
+        
+
+            <!-- /.row (main row) -->
+            <?php
+                $sql = "select * from water.control_data where address=99999999 order by create_at desc limit 1";
+                $result = mysqli_query($conn, $sql);
+                $row1 = mysqli_fetch_array($result);
+
+                $relay1 = !$row1['relay1'] && "" ? 0 : $row1['relay1'];
 
 
- 
+                if ($relay1 == 1) {
+                    $do_str_1 = "작동중";
+                    $do_css_1 = "bg-gradient-primary";
+                    $do_checked_1 = "checked";
+                } else if ($relay1 == 0) {
+                    $do_str_1 = "정지";
+                    $do_css_1 = "bg-gradient-danger";
+                    $do_checked_1 = "";
+                } else {
+                    $do_str_1 = "정지";
+                    $do_css_1 = "bg-gradient-danger";
+                    $do_checked_1 = "";
+                }
+
+                $sql = "select * from water.control_data where address=99999999 order by create_at desc limit 1";
+                $result = mysqli_query($conn, $sql);
+                $row2 = mysqli_fetch_array($result);
+
+                $relay2 = !$row2['relay2'] && "" ? 0 : $row2['relay2'];
+
+
+                if ($relay2 == 1) {
+                    $do_str_2 = "작동중";
+                    $do_css_2 = "bg-gradient-primary";
+                    $do_checked_2 = "checked";
+                } else if ($relay2 == 0) {
+                    $do_str_2 = "정지";
+                    $do_css_2 = "bg-gradient-danger";
+                    $do_checked_2 = "";
+                } else {
+                    $do_str_2 = "정지";
+                    $do_css_2 = "bg-gradient-danger";
+                    $do_checked_2 = "";
+                }
+            ?>
+            <div class="row">
+                <div class="col-lg-2 col-sm-12">
+                    <!-- Bootstrap Switch -->
+                    <div class="card card-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title">relay1</h3>
+                            <button type="button" name="control_button_1" class="btn btn-block <?php echo $do_css_1;?> btn-flat btn-sm" style="user-select: auto;"><?php echo $do_str_1;?></button>
+                        </div>
+                        <div class="card-body">
+                            <input type="checkbox" name="control_checkbox_1" <?php echo $do_checked_1;?> data-bootstrap-switch>
+
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+
+                <div class="col-lg-2 col-sm-12">
+                    <!-- Bootstrap Switch -->
+                    <div class="card card-secondary">
+                        <div class="card-header">
+                            <h3 class="card-title">relay2</h3>
+                            <button type="button" name="control_button_2" class="btn btn-block <?php echo $do_css_2;?> btn-flat btn-sm" style="user-select: auto;"><?php echo $do_str_2;?></button>
+                        </div>
+                        <div class="card-body">
+                            <input type="checkbox" name="control_checkbox_2" <?php echo $do_checked_2;?> data-bootstrap-switch>
+
+                        </div>
+                    </div>
+                    <!-- /.card -->
+                </div>
+            </div>
+
+
+        </div><!-- /.container-fluid -->
+    </div>
     
     
 </section>

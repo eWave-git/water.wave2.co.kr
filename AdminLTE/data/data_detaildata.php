@@ -139,6 +139,10 @@
                         show: false
                     }
                 },
+                tooltip: {
+                  show:true,
+                  content: "섭취량 : %yL<br /> 시간 : %x"
+                },
                 lines : {
                     fill : false,
                     color: ['#3c8dbc', '#f56954']

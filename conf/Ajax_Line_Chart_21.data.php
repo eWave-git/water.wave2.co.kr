@@ -50,7 +50,7 @@ foreach ($rows as $k => $v) {
     array_push($pressure_in_arr, array($k, $v['h_room_1']));
 //    array_push($pressure_in_arr, array($k, floor($v['data2'])));
 //    array_push($pressure_out_arr, array($k, $v['good']));
-    array_push($create_at_arr, array($k, substr($v['h_time'],0,4)));
+    array_push($create_at_arr, array($k, substr($v['h_time'],0,5)));
 }
 
 $pressure_in = array(
