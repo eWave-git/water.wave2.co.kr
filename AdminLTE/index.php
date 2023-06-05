@@ -25,21 +25,23 @@ include_once "../conf/loginCheck.php";
         <?php 
         if ($_SESSION['user_type'] == "admin") {
             include_once "logo.php";
-        } else if ($_SESSION['user_id'] == "user1" ||$_SESSION['user_id'] == "user2" || $_SESSION['user_id'] == "user3") {
-            include_once "logo_w.php";
+        } else if ($_SESSION['user_id'] == "king" ||$_SESSION['user_id'] == "user2" || $_SESSION['user_id'] == "user3") {
+            include_once "logo_user.php";
         }
         ?>
 
         <!-- Sidebar -->
-
-        <?php 
+        <?php
         if ($_SESSION['user_type'] == "admin") {
             include_once "sidebar.php";
-        } else if ($_SESSION['user_id'] == "user1" ||$_SESSION['user_id'] == "user2" || $_SESSION['user_id'] == "user3") {
+        } else if ($_SESSION['user_id'] == "king") {
+            include_once "king_sidebar.php";
+        } else if ($_SESSION['user_id'] == "user2") {
+            include_once "sidebar_user.php";
+        } else if ($_SESSION['user_id'] == "user3") {
             include_once "sidebar_user.php";
         }
         ?>
-
         <!-- /.sidebar -->
     </aside>
 
@@ -55,8 +57,8 @@ include_once "../conf/loginCheck.php";
         <?php
         if ($_SESSION['user_type'] == "admin") {
             include_once "dashboard.php";
-        } else if ($_SESSION['user_id'] == "user1") {
-            include_once "user1_dashboard.php";
+        } else if ($_SESSION['user_id'] == "king") {
+            include_once "king_dashboard.php";
         } else if ($_SESSION['user_id'] == "user2") {
             include_once "user2_dashboard.php";
         } else if ($_SESSION['user_id'] == "user3") {

@@ -2,54 +2,63 @@
 include_once "../connect.php";
 
 $query = "
-    SELECT idx, date_format(create_at, \"%m-%d %H:00\") as checkpoint,
-        (max(data3)-ifnull(LAG(max(data3)) OVER (ORDER BY create_at, idx), 0))*10 as 1dong
+    SELECT idx, create_at, date_format(create_at, \"%m-%d\") as DF,
+        (MAX(IF(board_number=3, data3, NULL)) - MIN(IF(board_number=3, data3, NULL)) )*10 as daily_1building,
+        MAX(data1) as hi_temp
     FROM water.raw_data
-    WHERE board_number=3
-        AND create_at >= now() - INTERVAL 24 hour
-    group by checkpoint
+    WHERE create_at >= \"2023-05-13\" and create_at < current_date()
+    group by DF
     ORDER BY idx asc;
-    ";
-//create_at >= now() - INTERVAL 30 minute
+        ";
 $result = mysqli_query($conn, $query);
 $rows = array();
-$i =0;
-while($row = mysqli_fetch_array($result)) {
-    if ($i > 0) {
-        $rows[] = $row;
-    }
-    $i++;
-}
+
+while($row = mysqli_fetch_array($result))
+    $rows[] = $row;
+
+$query2 = "
+    select create_at, date_format(create_at, \"%m-%d\") as DF,max(data1) as hi_temp,
+    from water.raw_data
+    WHERE create_at >= \"2023-05-13\" and create_at < current_date()
+    group by DF
+    ORDER BY idx desc;
+        ";
+$result2 = mysqli_query($conn, $query2);
+$rows2 = array();
+
+while($row2 = mysqli_fetch_array($result))
+    $rows2[] = $row2;
 
 
-$tds_in_arr = array();
-$tds_out_arr = array();
+
+$daily_1building_arr = array();
+$hitemp_arr = array();
 $create_at_arr = array();
 
 foreach ($rows as $k => $v) {
-    array_push($tds_in_arr, array($k, $v['1dong']));
-    //array_push($tds_in_arr, array($k, floor($v['data1'])));
-    //array_push($tds_out_arr, array($k, floor($v['tds_out'])));
-    array_push($create_at_arr, array($k, substr($v['checkpoint'],6,5)));
+    array_push($daily_1building_arr, array($k, $v['daily_1building']));
+    array_push($hitemp_arr, array($k, $v['hi_temp']));
+    array_push($create_at_arr, array($k, substr($v['DF'],1,5)));
+}
+foreach ($rows2 as $k => $v) {
+    
+    array_push($hitemp_arr, array($k, $v['hi_temp']));
+
 }
 
-$tds_in = array(
-    'data' => $tds_in_arr,
+$daily_1building = array(
+    'data' => $daily_1building_arr,
     'color'=>'#3c8dbc',
 );
 
-$tds_out = array(
-    'data' => $tds_out_arr,
-    'color'=>'#00c0ef',
+$hitemp = array(
+     'data' => $hitemp_arr,
+     'color'=>'#FF0000',
 );
-
-//echo "<xmp>";
-//print_r($tds_in);
-//echo "</xmp>";
 
 $response = array();
 $response['pay_load']['success'] = "success";
-$response['pay_load']['dataset'] = array('tds_in'=>$tds_in, 'tds_out'=>$tds_out,);
+$response['pay_load']['dataset'] = array('daily_1building'=>$daily_1building, 'hitemp'=>$hitemp,);
 $response['pay_load']['create_at'] = $create_at_arr;
 
 echo json_encode($response);

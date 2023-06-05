@@ -2,18 +2,18 @@
 include_once "../connect.php";
 
 $query = "
-    select
-        DATE_FORMAT(create_at, '%m-%d %H:%i') as DATE,
-        data2
-    from mush.raw_data
-    where
-        address = 401 and board_number = 3  and
-        create_at >= now() - INTERVAL 4 hour
-    order by DATE asc;
+    SELECT idx, create_at, 
+        DATE_FORMAT(create_at, \"%m-%d %H:00\") as DF,
+        (MAX(IF(board_number=2, data3, NULL)) - MIN(IF(board_number=2, data3, NULL)) )*10 as hour_3building
+    FROM water.raw_data
+    where create_at < current_date() and create_at > current_date() - interval 1 day
+    group by DF
+    order by idx asc;
     "; 
-//create_at >= now() - INTERVAL 30 minute
+
 $result = mysqli_query($conn, $query);
 $rows = array();
+
 while($row = mysqli_fetch_array($result))
     $rows[] = $row;
 
@@ -23,20 +23,15 @@ $throughput_arr = array();
 $create_at_arr = array();
 
 foreach ($rows as $k => $v) {
-    array_push($throughput_arr, array($k, $v['data2']));
-    //array_push($throughput_arr, array($k, floor($v['data3'])));
-    array_push($create_at_arr, array($k, substr($v['DATE'],6,5)));
+    array_push($throughput_arr, array($k, $v['hour_3building']));
+
+    array_push($create_at_arr, array($k, substr($v['DF'],5,11)));
 }
 
 $throughput = array(
     'data' => $throughput_arr,
     'color'=>'#3c8dbc',
 );
-
-
-//echo "<xmp>";
-//print_r($throughput);
-//echo "</xmp>";
 
 $response = array();
 $response['pay_load']['success'] = "success";

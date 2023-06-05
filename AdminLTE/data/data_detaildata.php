@@ -30,12 +30,15 @@
                             <label for="exampleInputEmail1">센서</label>
                             <select class="custom-select rounded-0" id="sensor" name="sensor">
                                 <option value="">선택하세요.</option>
-                                <option value="sum_room1">1동 누적</option>
-                                <option value="time_room1">1동 시간대별</option>
-                                <option value="sum_room2">2동 누적</option>
-                                <option value="time_room2">2동 시간대별</option>
-                                <option value="sum_room3">3동 누적</option>
-                                <option value="time_room3">3동 시간대별</option>
+                                <option value="daily_1building">1동 일간 음수</option>
+                                <option value="time_1building">1동 시간대별</option>
+                                <option value="time_sum_1building">1동 시간대별 누적</option>
+                                <option value="daily_2building">2동 일간 음수</option>
+                                <option value="time_2building">2동 시간대별</option>
+                                <option value="time_sum_2building">2동 시간대별 누적</option>
+                                <option value="daily_3building">3동 일간 음수</option>
+                                <option value="time_3building">3동 시간대별</option>
+                                <option value="time_sum_3building">3동 시간대별 누적</option>
                                 <option value="data1">-</option>
                             </select>
                         </div>

@@ -10,16 +10,17 @@ $sdate = $s[0]." 00:00";
 $edate = $s[1]." 23:59";
 
 
-if ($sensor == "sum_room1") {
+if ($sensor == "daily_1building") {
     $query = "
-        SELECT idx, create_at, 
-	        DATE_FORMAT(create_at, \"%m-%d %H:00\") as DATE,
-	        (MAX(IF(board_number=3, data3, NULL)) - MIN(IF(board_number=3, data3, NULL)) )*10 as room_1,
-            SUM((MAX(IF(board_number=3, data3, NULL)) - MIN(IF(board_number=3, data3, NULL)) )*10) OVER(order by create_at) AS sum_room_1
+
+
+        SELECT idx, create_at, date_format(create_at, \"%m-%d\") as DF,
+            (MAX(IF(board_number=3, data3, NULL)) - MIN(IF(board_number=3, data3, NULL)) )*10 as daily_1building
         FROM water.raw_data
-        where create_at >= '{$sdate}' and create_at <= '{$edate}' 
-        group by DATE
-        order by DATE asc;
+        WHERE create_at >= '{$sdate}' and create_at <= '{$edate}' 
+        group by DF
+        ORDER BY idx asc;
+
     ";
 
     $result = mysqli_query($conn, $query);
@@ -31,8 +32,8 @@ if ($sensor == "sum_room1") {
     $create_at_arr = array();
 
     foreach ($rows as $k => $v) {
-        array_push($tds_in_arr, array($k, floor($v['sum_room_1'])));
-        array_push($create_at_arr, array($k, substr($v['DATE'],6,5)));
+        array_push($tds_in_arr, array($k, floor($v['daily_1building'])));
+        array_push($create_at_arr, array($k, substr($v['DF'],0,16)));
     }
 
     $tds_in = array(
@@ -48,12 +49,11 @@ if ($sensor == "sum_room1") {
 
     echo json_encode($response);
 
-} else if ($sensor == "time_room1") {
+} else if ($sensor == "time_1building") {
     $query = "
         SELECT idx, create_at, 
             DATE_FORMAT(create_at, \"%m-%d %H:00\") as DATE,
-            (MAX(IF(board_number=3, data3, NULL)) - MIN(IF(board_number=3, data3, NULL)) )*10 as room_1,
-            SUM((MAX(IF(board_number=3, data3, NULL)) - MIN(IF(board_number=3, data3, NULL)) )*10) OVER(order by create_at) AS sum_room_1
+            (MAX(IF(board_number=3, data3, NULL)) - MIN(IF(board_number=3, data3, NULL)) )*10 as time_1building
         FROM water.raw_data
         where create_at >= '{$sdate}' and create_at <= '{$edate}' 
         group by DATE
@@ -69,7 +69,7 @@ if ($sensor == "sum_room1") {
     $create_at_arr = array();
 
     foreach ($rows as $k => $v) {
-        array_push($tds_out_arr, array($k, floor($v['room_1'])));
+        array_push($tds_out_arr, array($k, floor($v['time_1building'])));
         array_push($create_at_arr, array($k, substr($v['DATE'],0,16)));
     }
 
@@ -86,204 +86,13 @@ if ($sensor == "sum_room1") {
 
     echo json_encode($response);
 
-} else if ($sensor == "data3") {
+} else if ($sensor == "time_sum_1building") {
     $query = "
-        select
-            DATE_FORMAT(create_at, '%Y-%m-%d %H:%i:00') as DATE,
-            data3
-        from water.raw_data
-        where create_at >= '{$sdate}' and create_at <= '{$edate}' 
-            and board_number = 2 
-        order by DATE asc
-    ";
-    $result = mysqli_query($conn, $query);
-    $rows = array();
-    while ($row = mysqli_fetch_array($result))
-        $rows[] = $row;
-
-
-    $pressure_in_arr = array();
-    $create_at_arr = array();
-
-    foreach ($rows as $k => $v) {
-        array_push($pressure_in_arr, array($k, floor($v['data3'])));
-        array_push($create_at_arr, array($k, substr($v['DATE'],0,16)));
-    }
-
-    $pressure_in = array(
-        'data' => $pressure_in_arr,
-        'color' => '#3c8dbc',
-    );
-
-    $response = array();
-    $response['pay_load']['success'] = "success";
-    $response['pay_load']['datatype'] = "pressure_in";
-    $response['pay_load']['dataset'] = array('pressure_in' => $pressure_in);
-    $response['pay_load']['create_at'] = $create_at_arr;
-
-    echo json_encode($response);
-
-} else if ($sensor == "PRESSUREOUT") {
-    $query = "
-        select
-            DATE_FORMAT(create_at, '%Y-%m-%d %H:%i:00') as DATE,
-            avg(pressure_out) as pressure_out
-        from ro_jstech
-        where create_at >= '{$sdate}' and create_at <= '{$edate}'
-        group by DAY(create_at),FLOOR(MINUTE(create_at)/1)*10
-        order by DATE asc ;
-    ";
-    $result = mysqli_query($conn, $query);
-    $rows = array();
-    while ($row = mysqli_fetch_array($result))
-        $rows[] = $row;
-
-
-    $pressure_out_arr = array();
-    $create_at_arr = array();
-
-    foreach ($rows as $k => $v) {
-        array_push($pressure_out_arr, array($k, floor($v['pressure_out'])));
-        array_push($create_at_arr, array($k, substr($v['DATE'],0,16)));
-    }
-
-    $pressure_out = array(
-        'data' => $pressure_out_arr,
-        'color' => '#3c8dbc',
-    );
-
-    $response = array();
-    $response['pay_load']['success'] = "success";
-    $response['pay_load']['datatype'] = "pressure_out";
-    $response['pay_load']['dataset'] = array('pressure_out' => $pressure_out);
-    $response['pay_load']['create_at'] = $create_at_arr;
-
-    echo json_encode($response);
-
-} else if ($sensor == "WATERIN") {
-
-    $query = "
-        select
-            DATE_FORMAT(create_at, '%Y-%m-%d %H:00:00') as DATE,
-            sum(water_in) as water_in
-        FROM ro_jstech 
-        where create_at >= '{$sdate}' and create_at <= '{$edate}'
-        group by DATE
-        order by DATE asc
-    ";
-
-
-    $result = mysqli_query($conn, $query);
-    $rows = array();
-    while($row = mysqli_fetch_array($result))
-        $rows[] = $row;
-
-    $water_in_arr = array();
-    $create_at_arr = array();
-
-    foreach ($rows as $k => $v) {
-        array_push($water_in_arr, array($k, floor($v['water_in'])));
-        array_push($create_at_arr, array($k, substr($v['DATE'],0,16)));
-    }
-
-    $water_in = array(
-        'data' => $water_in_arr,
-        'color'=>'#3c8dbc',
-    );
-
-    $response = array();
-    $response['pay_load']['success'] = "success";
-    $response['pay_load']['datatype'] = "water_in";
-    $response['pay_load']['dataset'] = array('water_in'=>$water_in);
-    $response['pay_load']['create_at'] = $create_at_arr;
-
-    echo json_encode($response);
-
-} else if ($sensor == "WATEROUT") {
-
-    $query = "
-        select
-            DATE_FORMAT(create_at, '%Y-%m-%d %H:00:00') as DATE,
-            sum(water_out) as water_out
-        FROM ro_jstech 
-        where create_at >= '{$sdate}' and create_at <= '{$edate}'
-        group by DATE
-        order by DATE asc
-    ";
-
-    $result = mysqli_query($conn, $query);
-    $rows = array();
-    while($row = mysqli_fetch_array($result))
-        $rows[] = $row;
-
-    $water_out_arr = array();
-    $create_at_arr = array();
-
-    foreach ($rows as $k => $v) {
-        array_push($water_out_arr, array($k, floor($v['water_out'])));
-        array_push($create_at_arr, array($k, substr($v['DATE'],0,16)));
-    }
-
-    $water_out = array(
-        'data' => $water_out_arr,
-        'color'=>'#3c8dbc',
-    );
-
-    $response = array();
-    $response['pay_load']['success'] = "success";
-    $response['pay_load']['datatype'] = "water_out";
-    $response['pay_load']['dataset'] = array('water_out'=>$water_out);
-    $response['pay_load']['create_at'] = $create_at_arr;
-
-    echo json_encode($response);
-
-} else if ($sensor == "THROUGHPUT") {
-
-    $query = "
-        select
-        DATE_FORMAT(create_at, '%Y-%m-%d %H:00:00') as DATE,
-            round((sum(water_in)-sum(water_in-water_out)),0) as throughput
-        FROM ro_jstech
-        where create_at >= '{$sdate}' and create_at <= '{$edate}'
-            group by DATE
-            order by DATE asc;
-    ";
-    $result = mysqli_query($conn, $query);
-    $rows = array();
-    while($row = mysqli_fetch_array($result))
-        $rows[] = $row;
-
-
-    $throughput_arr = array();
-
-    $create_at_arr = array();
-
-    foreach ($rows as $k => $v) {
-        array_push($throughput_arr, array($k, floor($v['throughput'])));
-        array_push($create_at_arr, array($k, substr($v['DATE'],11,5)));
-    }
-
-    $throughput = array(
-        'data' => $throughput_arr,
-        'color'=>'#3c8dbc',
-    );
-
-    $response = array();
-    $response['pay_load']['success'] = "success";
-    $response['pay_load']['datatype'] = "throughput";
-    $response['pay_load']['dataset'] = array('throughput'=>$throughput,);
-    $response['pay_load']['create_at'] = $create_at_arr;
-
-    echo json_encode($response);
-
-} else if ($sensor == "bar1") {
-
-    $query = "
-        select
-            DATE_FORMAT(create_at, '%Y-%m-%d') as DATE,
-            round(max(data1,1) as power
+        SELECT idx, create_at, 
+            DATE_FORMAT(create_at, \"%m-%d %H:00\") as DATE,
+            SUM((MAX(IF(board_number=3, data3, NULL)) - MIN(IF(board_number=3, data3, NULL)) )*10) OVER(order by create_at) AS time_sum_1building
         FROM water.raw_data
-        where create_at >= '{$sdate}' and create_at <= '{$edate}' and board_number = 2
+        where create_at >= '{$sdate}' and create_at <= '{$edate}' 
         group by DATE
         order by DATE asc;
     ";
@@ -293,31 +102,256 @@ if ($sensor == "sum_room1") {
     while($row = mysqli_fetch_array($result))
         $rows[] = $row;
 
-
-    $power_arr = array();
-
+    $tds_out_arr = array();
     $create_at_arr = array();
 
     foreach ($rows as $k => $v) {
-
-        array_push($power_arr, array($k, floor($v['power'])));
-        array_push($create_at_arr, array($k, $v['DATE']));
+        array_push($tds_out_arr, array($k, floor($v['time_sum_1building'])));
+        array_push($create_at_arr, array($k, substr($v['DATE'],0,16)));
     }
 
-    $power = array(
-        'data' => $power_arr,
-        'bars' => array('show'=>true,),
+    $tds_out = array(
+        'data' => $tds_out_arr,
+        'color'=>'#3c8dbc',
     );
 
     $response = array();
     $response['pay_load']['success'] = "success";
-    $response['pay_load']['datatype'] = "power";
-    $response['pay_load']['dataset'] = array('power'=>$power,);
+    $response['pay_load']['datatype'] = "tds_out";
+    $response['pay_load']['dataset'] = array('tds_out'=>$tds_out);
     $response['pay_load']['create_at'] = $create_at_arr;
 
     echo json_encode($response);
 
-}
+} else if ($sensor == "daily_2building") {
+    $query = "
+
+
+        SELECT idx, create_at, date_format(create_at, \"%m-%d\") as DF,
+            (MAX(IF(board_number=3, data4, NULL)) - MIN(IF(board_number=3, data4, NULL)) )*10 as daily_2building
+        FROM water.raw_data
+        WHERE create_at >= '{$sdate}' and create_at <= '{$edate}' 
+        group by DF
+        ORDER BY idx asc;
+
+    ";
+
+    $result = mysqli_query($conn, $query);
+    $rows = array();
+    while($row = mysqli_fetch_array($result))
+        $rows[] = $row;
+
+    $tds_in_arr = array();
+    $create_at_arr = array();
+
+    foreach ($rows as $k => $v) {
+        array_push($tds_in_arr, array($k, floor($v['daily_2building'])));
+        array_push($create_at_arr, array($k, substr($v['DF'],0,16)));
+    }
+
+    $tds_in = array(
+        'data' => $tds_in_arr,
+        'color'=>'#3c8dbc',
+    );
+
+    $response = array();
+    $response['pay_load']['success'] = "success";
+    $response['pay_load']['datatype'] = "tds_in";
+    $response['pay_load']['dataset'] = array('tds_in'=>$tds_in);
+    $response['pay_load']['create_at'] = $create_at_arr;
+
+    echo json_encode($response);
+
+} else if ($sensor == "time_2building") {
+    $query = "
+        SELECT idx, create_at, 
+            DATE_FORMAT(create_at, \"%m-%d %H:00\") as DATE,
+            (MAX(IF(board_number=3, data4, NULL)) - MIN(IF(board_number=3, data4, NULL)) )*10 as time_2building
+        FROM water.raw_data
+        where create_at >= '{$sdate}' and create_at <= '{$edate}' 
+        group by DATE
+        order by DATE asc;
+    ";
+
+    $result = mysqli_query($conn, $query);
+    $rows = array();
+    while($row = mysqli_fetch_array($result))
+        $rows[] = $row;
+
+    $tds_out_arr = array();
+    $create_at_arr = array();
+
+    foreach ($rows as $k => $v) {
+        array_push($tds_out_arr, array($k, floor($v['time_2building'])));
+        array_push($create_at_arr, array($k, substr($v['DATE'],0,16)));
+    }
+
+    $tds_out = array(
+        'data' => $tds_out_arr,
+        'color'=>'#3c8dbc',
+    );
+
+    $response = array();
+    $response['pay_load']['success'] = "success";
+    $response['pay_load']['datatype'] = "tds_out";
+    $response['pay_load']['dataset'] = array('tds_out'=>$tds_out);
+    $response['pay_load']['create_at'] = $create_at_arr;
+
+    echo json_encode($response);
+
+} else if ($sensor == "time_sum_2building") {
+    $query = "
+        SELECT idx, create_at, 
+            DATE_FORMAT(create_at, \"%m-%d %H:00\") as DATE,
+            SUM((MAX(IF(board_number=3, data4, NULL)) - MIN(IF(board_number=3, data4, NULL)) )*10) OVER(order by create_at) AS time_sum_2building
+        FROM water.raw_data
+        where create_at >= '{$sdate}' and create_at <= '{$edate}' 
+        group by DATE
+        order by DATE asc;
+    ";
+
+    $result = mysqli_query($conn, $query);
+    $rows = array();
+    while($row = mysqli_fetch_array($result))
+        $rows[] = $row;
+
+    $tds_out_arr = array();
+    $create_at_arr = array();
+
+    foreach ($rows as $k => $v) {
+        array_push($tds_out_arr, array($k, floor($v['time_sum_2building'])));
+        array_push($create_at_arr, array($k, substr($v['DATE'],0,16)));
+    }
+
+    $tds_out = array(
+        'data' => $tds_out_arr,
+        'color'=>'#3c8dbc',
+    );
+
+    $response = array();
+    $response['pay_load']['success'] = "success";
+    $response['pay_load']['datatype'] = "tds_out";
+    $response['pay_load']['dataset'] = array('tds_out'=>$tds_out);
+    $response['pay_load']['create_at'] = $create_at_arr;
+
+    echo json_encode($response);
+
+} else if ($sensor == "daily_3building") {
+    $query = "
+
+
+        SELECT idx, create_at, date_format(create_at, \"%m-%d\") as DF,
+            (MAX(IF(board_number=2, data3, NULL)) - MIN(IF(board_number=2, data3, NULL)) )*10 as daily_3building
+        FROM water.raw_data
+        WHERE create_at >= '{$sdate}' and create_at <= '{$edate}' 
+        group by DF
+        ORDER BY idx asc;
+
+    ";
+
+    $result = mysqli_query($conn, $query);
+    $rows = array();
+    while($row = mysqli_fetch_array($result))
+        $rows[] = $row;
+
+    $tds_in_arr = array();
+    $create_at_arr = array();
+
+    foreach ($rows as $k => $v) {
+        array_push($tds_in_arr, array($k, floor($v['daily_3building'])));
+        array_push($create_at_arr, array($k, substr($v['DF'],0,16)));
+    }
+
+    $tds_in = array(
+        'data' => $tds_in_arr,
+        'color'=>'#3c8dbc',
+    );
+
+    $response = array();
+    $response['pay_load']['success'] = "success";
+    $response['pay_load']['datatype'] = "tds_in";
+    $response['pay_load']['dataset'] = array('tds_in'=>$tds_in);
+    $response['pay_load']['create_at'] = $create_at_arr;
+
+    echo json_encode($response);
+
+} else if ($sensor == "time_3building") {
+    $query = "
+        SELECT idx, create_at, 
+            DATE_FORMAT(create_at, \"%m-%d %H:00\") as DATE,
+            (MAX(IF(board_number=2, data3, NULL)) - MIN(IF(board_number=2, data3, NULL)) )*10 as time_3building
+        FROM water.raw_data
+        where create_at >= '{$sdate}' and create_at <= '{$edate}' 
+        group by DATE
+        order by DATE asc;
+    ";
+
+    $result = mysqli_query($conn, $query);
+    $rows = array();
+    while($row = mysqli_fetch_array($result))
+        $rows[] = $row;
+
+    $tds_out_arr = array();
+    $create_at_arr = array();
+
+    foreach ($rows as $k => $v) {
+        array_push($tds_out_arr, array($k, floor($v['time_3building'])));
+        array_push($create_at_arr, array($k, substr($v['DATE'],0,16)));
+    }
+
+    $tds_out = array(
+        'data' => $tds_out_arr,
+        'color'=>'#3c8dbc',
+    );
+
+    $response = array();
+    $response['pay_load']['success'] = "success";
+    $response['pay_load']['datatype'] = "tds_out";
+    $response['pay_load']['dataset'] = array('tds_out'=>$tds_out);
+    $response['pay_load']['create_at'] = $create_at_arr;
+
+    echo json_encode($response);
+
+} else if ($sensor == "time_sum_3building") {
+    $query = "
+        SELECT idx, create_at, 
+            DATE_FORMAT(create_at, \"%m-%d %H:00\") as DATE,
+            SUM((MAX(IF(board_number=2, data3, NULL)) - MIN(IF(board_number=2, data3, NULL)) )*10) OVER(order by create_at) AS time_sum_3building
+        FROM water.raw_data
+        where create_at >= '{$sdate}' and create_at <= '{$edate}' 
+        group by DATE
+        order by DATE asc;
+    ";
+
+    $result = mysqli_query($conn, $query);
+    $rows = array();
+    while($row = mysqli_fetch_array($result))
+        $rows[] = $row;
+
+    $tds_out_arr = array();
+    $create_at_arr = array();
+
+    foreach ($rows as $k => $v) {
+        array_push($tds_out_arr, array($k, floor($v['time_sum_3building'])));
+        array_push($create_at_arr, array($k, substr($v['DATE'],0,16)));
+    }
+
+    $tds_out = array(
+        'data' => $tds_out_arr,
+        'color'=>'#3c8dbc',
+    );
+
+    $response = array();
+    $response['pay_load']['success'] = "success";
+    $response['pay_load']['datatype'] = "tds_out";
+    $response['pay_load']['dataset'] = array('tds_out'=>$tds_out);
+    $response['pay_load']['create_at'] = $create_at_arr;
+
+    echo json_encode($response);
+
+} 
+
+
 
 
 ?>

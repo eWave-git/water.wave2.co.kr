@@ -1,4 +1,48 @@
 <?php
+    $sql = "select * from water.control_data where address=99999999 order by create_at desc limit 1";
+    $result = mysqli_query($conn, $sql);
+    $row1 = mysqli_fetch_array($result);
+
+    $relay1 = !$row1['relay1'] && "" ? 0 : $row1['relay1'];
+
+
+    if ($relay1 == 1) {
+        $do_str_1 = "작동중";
+        $do_css_1 = "bg-gradient-primary";
+        $do_checked_1 = "checked";
+    } else if ($relay1 == 0) {
+        $do_str_1 = "정지";
+        $do_css_1 = "bg-gradient-danger";
+        $do_checked_1 = "";
+    } else {
+        $do_str_1 = "정지";
+        $do_css_1 = "bg-gradient-danger";
+        $do_checked_1 = "";
+    }
+
+    $sql = "select * from water.control_data where address=99999999 order by create_at desc limit 1";
+    $result = mysqli_query($conn, $sql);
+    $row2 = mysqli_fetch_array($result);
+
+    $relay2 = !$row2['relay2'] && "" ? 0 : $row2['relay2'];
+
+
+    if ($relay2 == 1) {
+        $do_str_2 = "작동중";
+        $do_css_2 = "bg-gradient-primary";
+        $do_checked_2 = "checked";
+    } else if ($relay2 == 0) {
+        $do_str_2 = "정지";
+        $do_css_2 = "bg-gradient-danger";
+        $do_checked_2 = "";
+    } else {
+        $do_str_2 = "정지";
+        $do_css_2 = "bg-gradient-danger";
+        $do_checked_2 = "";
+    }
+?>
+
+<?php
     $sql1 = "select *, 
             round(1.8 * data1 + 32 -0.55*(1-data2/100)*(1.8*data1-26),0) as data8 
             from water.raw_data 
@@ -7,7 +51,7 @@
             desc limit 1";
 
     $result1 = mysqli_query($conn, $sql1);
-    $row1 = mysqli_fetch_array($result1);
+    $rowline1 = mysqli_fetch_array($result1);
 
 //    echo $row['data1'];
 //    echo $row['tds_out'];
@@ -18,717 +62,421 @@
 <section class="content">
     <div class="container-fluid">
         <!-- Small boxes (Stat box) -->
-        동별 온습도 <!------------------------------------------------------------------------------------------------------------- -->
+        동별 온습도
         <div class="row">
             <div class="col-lg-auto col-12">
                 <div class="info-box bg-info">
-<!--                    <span class="info-box-icon"><i class="far fa-bookmark"></i></span>-->
-
                     <div class="info-box-content">
                         <span class="info-box-text">1동 온도</span>
-                        <span class="info-box-number"><?php echo $row1['data1'];?> °C</span>
+                        <span class="info-box-number"><?php echo $rowline1['data1'];?> °C</span>
 
                         <div class="progress">
-                            <div class="progress-bar" style="width: <?php echo $row1['data1'];?>%"></div>
+                            <div class="progress-bar" style="width: <?php echo $rowline1['data1'];?>%"></div>
                         </div>
                         <span class="progress-description">
-                            Last : <?php echo substr($row1['create_at'],5,11);?> <!-- ($row['create_at'],11,8) -->
+                            Last : <?php echo substr($rowline1['create_at'],5,11);?> <!-- ($row['create_at'],11,8) -->
                         </span>
                     </div>
-                    <!-- /.info-box-content -->
                 </div>
             </div>
-            <!-- ./col -->
             <div class="col-lg-auto col-12">
                 <div class="info-box bg-info">
-<!--                    <span class="info-box-icon"><i class="far fa-thumbs-up"></i></span>-->
-
                     <div class="info-box-content">
                         <span class="info-box-text">1동 습도</span>
-                        <span class="info-box-number"><?php echo $row1['data2'];?> %</span>
+                        <span class="info-box-number"><?php echo $rowline1['data2'];?> %</span>
 
                         <div class="progress">
-                            <div class="progress-bar" style="width: <?php echo $row1['data2'];?>%"></div>
+                            <div class="progress-bar" style="width: <?php echo $rowline1['data2'];?>%"></div>
                         </div>
                         <span class="progress-description">
-                            Last : <?php echo substr($row1['create_at'],5,11);?>
+                            Last : <?php echo substr($rowline1['create_at'],5,11);?>
                         </span>
                     </div>
-                    <!-- /.info-box-content -->
                 </div>
-                <!-- /.info-box -->
             </div>
-            <!-- ./col -->
             <div class="col-lg-auto col-12">
                 <div class="info-box bg-info">
-<!--                    <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>-->
-
                     <div class="info-box-content">
                         <span class="info-box-text">1동 THI</span>
-                        <span class="info-box-number"><?php echo $row1['data8'];?> Point </span>
+                        <span class="info-box-number"><?php echo $rowline1['data8'];?> Point </span>
 
                         <div class="progress">
-                            <div class="progress-bar" style="width: <?php echo $row1['data8'];?>%"></div>
+                            <div class="progress-bar" style="width: <?php echo $rowline1['data8'];?>%"></div>
                         </div>
                         <span class="progress-description">
-                            Last : <?php echo substr($row1['create_at'],5,11);?>
+                            Last : <?php echo substr($rowline1['create_at'],5,11);?>
                         </span>
                     </div>
-                    <!-- /.info-box-content -->
                 </div>
             </div>
-            <!-- ./col -->
             <div class="col-lg-auto col-12">
                 <div class="info-box bg-success">
-<!--                    <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>-->
                     <div class="info-box-content">
                         <span class="info-box-text">2동 온도</span>
-                        <span class="info-box-number"><?php echo $row1['data2'];?> %</span>
+                        <span class="info-box-number"><?php echo $rowline1['data2'];?> %</span>
 
                         <div class="progress">
-                            <div class="progress-bar" style="width: <?php echo $row1['data2'];?>"></div>
+                            <div class="progress-bar" style="width: <?php echo $rowline1['data2'];?>"></div>
                         </div>
                         <span class="progress-description">
-                            Last : <?php echo substr($row1['create_at'],5,11);?>
+                            Last : <?php echo substr($rowline1['create_at'],5,11);?>
                         </span>
                     </div>
-                    <!-- /.info-box-content -->
                 </div>
             </div>
             <div class="col-lg-auto col-12">
                 <div class="info-box bg-success">
-<!--                    <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>-->
                     <div class="info-box-content">
                         <span class="info-box-text">2동 습도</span>
-                        <span class="info-box-number"><?php echo $row1['data2'];?> %</span>
+                        <span class="info-box-number"><?php echo $rowline1['data2'];?> %</span>
 
                         <div class="progress">
-                            <div class="progress-bar" style="width: <?php echo $row1['data2'];?>"></div>
+                            <div class="progress-bar" style="width: <?php echo $rowline1['data2'];?>"></div>
                         </div>
                         <span class="progress-description">
-                            Last : <?php echo substr($row1['create_at'],5,11);?>
+                            Last : <?php echo substr($rowline1['create_at'],5,11);?>
                         </span>
                     </div>
-                    <!-- /.info-box-content -->
                 </div>
             </div>
             <div class="col-lg-auto col-12">
                 <div class="info-box bg-success">
-<!--                    <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>-->
                     <div class="info-box-content">
                         <span class="info-box-text">2동 THI</span>
-                        <span class="info-box-number"><?php echo $row1['data2'];?> %</span>
+                        <span class="info-box-number"><?php echo $rowline1['data2'];?> %</span>
 
                         <div class="progress">
-                            <div class="progress-bar" style="width: <?php echo $row1['data2'];?>"></div>
+                            <div class="progress-bar" style="width: <?php echo $rowline1['data2'];?>"></div>
                         </div>
                         <span class="progress-description">
-                            Last : <?php echo substr($row1['create_at'],5,11);?>
+                            Last : <?php echo substr($rowline1['create_at'],5,11);?>
                         </span>
                     </div>
-                    <!-- /.info-box-content -->
                 </div>
             </div>
             <div class="col-lg-auto col-12">
                 <div class="info-box bg-warning">
-<!--                    <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>-->
                     <div class="info-box-content">
                         <span class="info-box-text">3동 온도</span>
-                        <span class="info-box-number"><?php echo $row1['data2'];?> %</span>
+                        <span class="info-box-number"><?php echo $rowline1['data2'];?> %</span>
 
                         <div class="progress">
-                            <div class="progress-bar" style="width: <?php echo $row1['data2'];?>"></div>
+                            <div class="progress-bar" style="width: <?php echo $rowline1['data2'];?>"></div>
                         </div>
                         <span class="progress-description">
-                            Last : <?php echo substr($row1['create_at'],5,11);?>
+                            Last : <?php echo substr($rowline1['create_at'],5,11);?>
                         </span>
                     </div>
-                    <!-- /.info-box-content -->
                 </div>
             </div>
             <div class="col-lg-auto col-12">
                 <div class="info-box bg-warning">
-<!--                    <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>-->
                     <div class="info-box-content">
                         <span class="info-box-text">3동 습도</span>
-                        <span class="info-box-number"><?php echo $row1['data2'];?> %</span>
+                        <span class="info-box-number"><?php echo $rowline1['data2'];?> %</span>
 
                         <div class="progress">
-                            <div class="progress-bar" style="width: <?php echo $row1['data2'];?>"></div>
+                            <div class="progress-bar" style="width: <?php echo $rowline1['data2'];?>"></div>
                         </div>
                         <span class="progress-description">
-                            Last : <?php echo substr($row1['create_at'],5,11);?>
+                            Last : <?php echo substr($rowline1['create_at'],5,11);?>
                         </span>
                     </div>
-                    <!-- /.info-box-content -->
                 </div>
             </div>
             <div class="col-lg-auto col-12">
                 <div class="info-box bg-warning">
-<!--                    <span class="info-box-icon"><i class="far fa-calendar-alt"></i></span>-->
                     <div class="info-box-content">
                         <span class="info-box-text">3동 THI</span>
-                        <span class="info-box-number"><?php echo $row1['data2'];?> %</span>
+                        <span class="info-box-number"><?php echo $rowline1['data2'];?> %</span>
 
                         <div class="progress">
-                            <div class="progress-bar" style="width: <?php echo $row1['data2'];?>"></div>
+                            <div class="progress-bar" style="width: <?php echo $rowline1['data2'];?>"></div>
                         </div>
                         <span class="progress-description">
-                            Last : <?php echo substr($row1['create_at'],5,11);?>
+                            Last : <?php echo substr($rowline1['create_at'],5,11);?>
                         </span>
                     </div>
-                    <!-- /.info-box-content -->
                 </div>
             </div>
-            
-            <!-- ./col -->
         </div>
-        <!-- Small boxes (Stat box) -->
-    </div>
-        <!-- /.row -->
-
-        <!-- Main row bg-info bg-success bg-warning bg-danger-->        <!-- Main row -->        <!-- Main row -->        <!-- Main row -->        <!-- Main row -->        <!-- Main row -->        <!-- Main row -->        <!-- Main row -->
-        
-
-
-
-        <div class="row">
-
-
-
-            <div class="col-lg-12 col-sm-12">
-                <div class="card card-primary card-tabs">
-                    <div class="card-header p-0 pt-1">
-                        <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
-                            <li class="pt-2 px-3"><h3 class="card-title">section </h3></li>
-                            <li class="nav-item">
-                                <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">매일농장1동</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false">230521 수정중</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="custom-tabs-two-messages-tab" data-toggle="pill" href="#custom-tabs-two-messages" role="tab" aria-controls="custom-tabs-two-messages" aria-selected="false">매일농장3동</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" id="custom-tabs-two-settings-tab" data-toggle="pill" href="#custom-tabs-two-settings" role="tab" aria-controls="custom-tabs-two-settings" aria-selected="false">-</a>
-                            </li>
-                           
-                        </ul>
-                    </div>
-                    <div class="card-body">
-                        <div class="tab-content" id="custom-tabs-two-tabContent">
-                            <!-- 송화버섯 -->
-                            <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
-
-                                <div class="row">
-                                    <div class="col-lg-6 col-sm-12">
-                                        <!-- Line chart -->
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-header">
-                                                <h3 class="card-title">
-                                                    <i class="far fa-chart-bar"></i>
-                                                    1: 오늘 음수섭취 now() - INTERVAL 24 hour
-                                                </h3>
-
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div id="Line_Chart_1" style="height: 300px;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6 col-sm-12">
-                                        <!-- Line chart -->
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-header">
-                                                <h3 class="card-title">
-                                                    <i class="far fa-chart-bar"></i>
-                                                    2: 전일 음수 섭취 INTERVAL 24 hour - INTERVAL 48 hour
-                                                </h3>
-
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div id="Line_Chart_2" style="height: 300px;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-6 col-sm-12">
-                                        <!-- Line chart -->
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-header">
-                                                <h3 class="card-title">
-                                                    <i class="far fa-chart-bar"></i>
-                                                    3: 입식일 이후 음수 섭취
-                                                </h3>
-
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div id="Line_Chart_3" style="height: 300px;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6 col-sm-12">
-                                        <!-- Line chart -->
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-header">
-                                                <h3 class="card-title">
-                                                    <i class="far fa-chart-bar"></i>
-                                                    4: 전일 음수 섭취 누적
-                                                </h3>
-
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div id="Line_Chart_4" style="height: 300px;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-6 col-sm-12">
-                                        <!-- Line chart -->
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-header">
-                                                <h3 class="card-title">
-                                                    <i class="far fa-chart-bar"></i>
-                                                    5: 평균 시간당 섭취량 (~입식이후)
-                                                </h3>
-
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <!-- <div id="bar_chart_1" style="height: 300px;"></div> -->
-                                                <div id="Line_Chart_21" style="height: 300px;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6 col-sm-12">
-                                        <!-- Line chart -->
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-header">
-                                                <h3 class="card-title">
-                                                    <i class="far fa-chart-bar"></i>
-                                                    6: 0시부터 24시간 그래프 어제
-                                                </h3>
-
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div id="bar_chart_2" style="height: 300px;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 매일농장 3-4 -->
-                            <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
-
-                                <div class="row">
-                                    <div class="col-lg-6 col-sm-12">
-                                        <!-- Line chart -->
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-header">
-                                                <h3 class="card-title">
-                                                    <i class="far fa-chart-bar"></i>
-                                                    2-1: 입식일 이후 1동 시간대별 평균 그래프 (5-13일부터)
-                                                </h3>
-
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div id="Line_Chart_21" style="height: 300px;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6 col-sm-12">
-                                        <!-- Line chart -->
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-header">
-                                                <h3 class="card-title">
-                                                    <i class="far fa-chart-bar"></i>
-                                                    2-2 : 오늘 1동 시간대별 평균 그래프
-                                                </h3>
-
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div id="Line_Chart_22" style="height: 300px;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-lg-6 col-sm-12">
-                                        <!-- Line chart -->
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-header">
-                                                <h3 class="card-title">
-                                                    <i class="far fa-chart-bar"></i>
-                                                    2-3: 2-3: 막대 입식 이후 일간섭취량
-                                                </h3>
-
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div id="bar_chart_21" style="height: 300px;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6 col-sm-12">
-                                     <!-- Line chart-->
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-header">
-                                                <h3 class="card-title">
-                                                    <i class="far fa-chart-bar"></i>
-                                                    2-4: 일간 통계 증감량 (꺽은선을 그려야 할듯 ㅠㅜ)
-                                                </h3>
-
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div id="bar_chart_22" style="height: 300px;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- 새송이버섯 -->
-                            <div class="tab-pane fade" id="custom-tabs-two-messages" role="tabpanel" aria-labelledby="custom-tabs-two-messages-tab">
-
-                                <div class="row">
-                                    <div class="col-lg-6 col-sm-12">
-                                        <!-- Line chart -->
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-header">
-                                                <h3 class="card-title">
-                                                    <i class="far fa-chart-bar"></i>
-
-                                                </h3>
-
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6 col-sm-12">
-                                        <!-- Line chart -->
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-header">
-                                                <h3 class="card-title">
-                                                    <i class="far fa-chart-bar"></i>
-
-                                                </h3>
-
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-                                                <div id="bar_chart_21" style="height: 300px;"></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-6 col-sm-12">
-                                        <!-- Line chart -->
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-header">
-                                                <h3 class="card-title">
-                                                    <i class="far fa-chart-bar"></i>
-
-                                                </h3>
-
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6 col-sm-12">
-                                        <!-- Line chart -->
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-header">
-                                                <h3 class="card-title">
-                                                    <i class="far fa-chart-bar"></i>
-
-                                                </h3>
-
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-6 col-sm-12">
-                                        <!-- Line chart -->
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-header">
-                                                <h3 class="card-title">
-                                                    <i class="far fa-chart-bar"></i>
-
-                                                </h3>
-
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6 col-sm-12">
-                                        <!-- Line chart -->
-                                        <div class="card card-primary card-outline">
-                                            <div class="card-header">
-                                                <h3 class="card-title">
-                                                    <i class="far fa-chart-bar"></i>
-
-                                                </h3>
-
-                                                <div class="card-tools">
-                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                                        <i class="fas fa-minus"></i>
-                                                    </button>
-                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
-                                                        <i class="fas fa-times"></i>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="card-body">
-
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                </div>
-
-                            </div>
-
-
-
-                            <!-- - -->
-                            <div class="tab-pane fade" id="custom-tabs-two-settings" role="tabpanel" aria-labelledby="custom-tabs-two-settings-tab">
-
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /.card -->
-
-                </div>
-            </div>
-
-        
-
-            <!-- /.row (main row) -->
-            <?php
-                $sql = "select * from water.control_data where address=99999999 order by create_at desc limit 1";
-                $result = mysqli_query($conn, $sql);
-                $row1 = mysqli_fetch_array($result);
-
-                $relay1 = !$row1['relay1'] && "" ? 0 : $row1['relay1'];
-
-
-                if ($relay1 == 1) {
-                    $do_str_1 = "작동중";
-                    $do_css_1 = "bg-gradient-primary";
-                    $do_checked_1 = "checked";
-                } else if ($relay1 == 0) {
-                    $do_str_1 = "정지";
-                    $do_css_1 = "bg-gradient-danger";
-                    $do_checked_1 = "";
-                } else {
-                    $do_str_1 = "정지";
-                    $do_css_1 = "bg-gradient-danger";
-                    $do_checked_1 = "";
-                }
-
-                $sql = "select * from water.control_data where address=99999999 order by create_at desc limit 1";
-                $result = mysqli_query($conn, $sql);
-                $row2 = mysqli_fetch_array($result);
-
-                $relay2 = !$row2['relay2'] && "" ? 0 : $row2['relay2'];
-
-
-                if ($relay2 == 1) {
-                    $do_str_2 = "작동중";
-                    $do_css_2 = "bg-gradient-primary";
-                    $do_checked_2 = "checked";
-                } else if ($relay2 == 0) {
-                    $do_str_2 = "정지";
-                    $do_css_2 = "bg-gradient-danger";
-                    $do_checked_2 = "";
-                } else {
-                    $do_str_2 = "정지";
-                    $do_css_2 = "bg-gradient-danger";
-                    $do_checked_2 = "";
-                }
-            ?>
-            <div class="row">
-                <div class="col-lg-2 col-sm-12">
-                    <!-- Bootstrap Switch -->
-                    <div class="card card-secondary">
-                        <div class="card-header">
-                            <h3 class="card-title">relay1</h3>
-                            <button type="button" name="control_button_1" class="btn btn-block <?php echo $do_css_1;?> btn-flat btn-sm" style="user-select: auto;"><?php echo $do_str_1;?></button>
-                        </div>
-                        <div class="card-body">
-                            <input type="checkbox" name="control_checkbox_1" <?php echo $do_checked_1;?> data-bootstrap-switch>
-
-                        </div>
-                    </div>
-                    <!-- /.card -->
-                </div>
-
-                <div class="col-lg-2 col-sm-12">
-                    <!-- Bootstrap Switch -->
-                    <div class="card card-secondary">
-                        <div class="card-header">
-                            <h3 class="card-title">relay2</h3>
-                            <button type="button" name="control_button_2" class="btn btn-block <?php echo $do_css_2;?> btn-flat btn-sm" style="user-select: auto;"><?php echo $do_str_2;?></button>
-                        </div>
-                        <div class="card-body">
-                            <input type="checkbox" name="control_checkbox_2" <?php echo $do_checked_2;?> data-bootstrap-switch>
-
-                        </div>
-                    </div>
-                    <!-- /.card -->
-                </div>
-            </div>
-
-
-        </div><!-- /.container-fluid -->
     </div>
     
+<!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
     
-</section>
+    <div class="row">
+        <div class="col-lg-12 col-sm-12">
+            <div class="card card-primary card-tabs">
+                <div class="card-header p-0 pt-1">
+                    <ul class="nav nav-tabs" id="custom-tabs-two-tab" role="tablist">
+                        <li class="pt-2 px-3"><h3 class="card-title"></h3></li>
+                        <li class="nav-item">
+                            <a class="nav-link active" id="custom-tabs-two-home-tab" data-toggle="pill" href="#custom-tabs-two-home" role="tab" aria-controls="custom-tabs-two-home" aria-selected="true">음수량</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="custom-tabs-two-profile-tab" data-toggle="pill" href="#custom-tabs-two-profile" role="tab" aria-controls="custom-tabs-two-profile" aria-selected="false"></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="custom-tabs-two-messages-tab" data-toggle="pill" href="#custom-tabs-two-messages" role="tab" aria-controls="custom-tabs-two-messages" aria-selected="false"></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="custom-tabs-two-settings-tab" data-toggle="pill" href="#custom-tabs-two-settings" role="tab" aria-controls="custom-tabs-two-settings" aria-selected="false"></a>
+                        </li>
+                        
+                    </ul>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content" id="custom-tabs-two-tabContent">
+                        <div class="tab-pane fade show active" id="custom-tabs-two-home" role="tabpanel" aria-labelledby="custom-tabs-two-home-tab">
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-12">
+                                    <!-- Line chart -->
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <i class="far fa-chart-bar"></i>
+                                                1 : 1동 음수섭취량
+                                            </h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="Line_Chart_1" style="height: 300px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-sm-12">
+                                    <!-- Line chart -->
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <i class="far fa-chart-bar"></i>
+                                                2: 1동 시간대별 음수량
+                                            </h3>
+
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="Line_Chart_2" style="height: 300px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-12">
+                                    <!-- Line chart -->
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <i class="far fa-chart-bar"></i>
+                                                3 : 2동 음수섭취량
+                                            </h3>
+
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="Line_Chart_3" style="height: 300px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-sm-12">
+                                    <!-- Line chart -->
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <i class="far fa-chart-bar"></i>
+                                                4 : 2동 시간대별 음수량
+                                            </h3>
+
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="Line_Chart_4" style="height: 300px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-12">
+                                    <!-- Line chart -->
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <i class="far fa-chart-bar"></i>
+                                                5 : 3동 음수섭취량
+                                            </h3>
+
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="Line_Chart_5" style="height: 300px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-sm-12">
+                                    <!-- Line chart -->
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <i class="far fa-chart-bar"></i>
+                                                6 : 3동 시간대별 음수량
+                                            </h3>
+
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="Line_Chart_6" style="height: 300px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-sm-12">
+                                    <!-- Line chart -->
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <i class="far fa-chart-bar"></i>
+                                                7 : 1(빨강),2(검정),3(초록)동 일간
+                                            </h3>
+
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="Line_Chart_7" style="height: 300px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-sm-12">
+                                    <!-- Line chart -->
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <i class="far fa-chart-bar"></i>
+                                                8 : 1(빨강),2(검정),3(초록)동 시간당
+                                            </h3>
+
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="Line_Chart_8" style="height: 300px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-lg-2 col-sm-12">
+                                    <!-- Bootstrap Switch -->
+                                    <div class="card card-secondary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">relay1</h3>
+                                            <button type="button" name="control_button_1" class="btn btn-block <?php echo $do_css_1;?> btn-flat btn-sm" style="user-select: auto;"><?php echo $do_str_1;?></button>
+                                        </div>
+                                        <div class="card-body">
+                                            <input type="checkbox" name="control_checkbox_1" <?php echo $do_checked_1;?> data-bootstrap-switch>
+
+                                        </div>
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+
+                                <div class="col-lg-2 col-sm-12">
+                                    <!-- Bootstrap Switch -->
+                                    <div class="card card-secondary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">relay2</h3>
+                                            <button type="button" name="control_button_2" class="btn btn-block <?php echo $do_css_2;?> btn-flat btn-sm" style="user-select: auto;"><?php echo $do_str_2;?></button>
+                                        </div>
+                                        <div class="card-body">
+                                            <input type="checkbox" name="control_checkbox_2" <?php echo $do_checked_2;?> data-bootstrap-switch>
+
+                                        </div>
+                                    </div>
+                                    <!-- /.card -->
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                        <!-- 2번 탭 -->
+                        <div class="tab-pane fade" id="custom-tabs-two-profile" role="tabpanel" aria-labelledby="custom-tabs-two-profile-tab">
+                        </div>
+                        <!-- 3번 탭 -->
+                        <div class="tab-pane fade" id="custom-tabs-two-messages" role="tabpanel" aria-labelledby="custom-tabs-two-messages-tab">
+                        </div>
+                        <!-- 4번 탭- -->
+                        <div class="tab-pane fade" id="custom-tabs-two-settings" role="tabpanel" aria-labelledby="custom-tabs-two-settings-tab">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </section>
+
+
 <script src="plugins/jquery/jquery.min.js"></script>
 
 <script>
@@ -820,7 +568,7 @@
         function _Line_Chart_1_update(_data) {
             const dataset = _data.pay_load.dataset
             
-            $.plot('#Line_Chart_1', [dataset['tds_in'],dataset['tds_out']], {
+            $.plot('#Line_Chart_1', [dataset['daily_1building']], {
                 grid  : {
                     hoverable  : true,
                     borderColor: '#f3f3f3',
@@ -838,7 +586,7 @@
                 },
                 tooltip: {
                   show:true,
-                  content: "섭취량 : %yL<br /> 시간 : %x"
+                  content: "양 : %yL <br /> 시간 : %x"
                 },
                 lines : {
                     fill : false,
@@ -1019,15 +767,15 @@
         }
 
 
-        Get_Line_Chart_21_Data()
+        Get_Line_Chart_5_Data()
 
-        function Get_Line_Chart_21_Data() {
+        function Get_Line_Chart_5_Data() {
             $.ajaxSetup({ cache: false });
             $.ajax({
-                url: "../conf/Ajax_Line_Chart_21.data.php",
+                url: "../conf/Ajax_Line_Chart_5.data.php",
                 dataType: 'json',
                 success: function (data) {
-                    _Line_Chart_21_update(data)
+                    _Line_Chart_5_update(data)
                 },
                 error: function () {
                     // setTimeout(GetData, updateInterval);
@@ -1035,10 +783,10 @@
             });
         }
 
-        function _Line_Chart_21_update(_data) {
+        function _Line_Chart_5_update(_data) {
             const dataset = _data.pay_load.dataset
 
-            $.plot('#Line_Chart_21', [dataset['pressure_in'],dataset['pressure_out']], {
+            $.plot('#Line_Chart_5', [dataset['water_in'],dataset['water_out']], {
                 grid  : {
                     hoverable  : true,
                     borderColor: '#f3f3f3',
@@ -1073,15 +821,15 @@
             })
         }
 
-        Get_Line_Chart_22_Data()
+        Get_Line_Chart_6_Data()
 
-        function Get_Line_Chart_22_Data() {
+        function Get_Line_Chart_6_Data() {
             $.ajaxSetup({ cache: false });
             $.ajax({
-                url: "../conf/Ajax_Line_Chart_22.data.php",
+                url: "../conf/Ajax_Line_Chart_6.data.php",
                 dataType: 'json',
                 success: function (data) {
-                    _Line_Chart_22_update(data)
+                    _Line_Chart_6_update(data)
                 },
                 error: function () {
                     // setTimeout(GetData, updateInterval);
@@ -1089,10 +837,10 @@
             });
         }
 
-        function _Line_Chart_22_update(_data) {
+        function _Line_Chart_6_update(_data) {
             const dataset = _data.pay_load.dataset
 
-            $.plot('#Line_Chart_22', [dataset['pressure_in'],dataset['pressure_out']], {
+            $.plot('#Line_Chart_6', [dataset['throughput'],], {
                 grid  : {
                     hoverable  : true,
                     borderColor: '#f3f3f3',
@@ -1123,17 +871,15 @@
             })
         }
 
+        Get_Line_Chart_7_Data()
 
-
-        Get_bar_chart_1_Data()
-
-        function Get_bar_chart_1_Data() {
+        function Get_Line_Chart_7_Data() {
             $.ajaxSetup({ cache: false });
             $.ajax({
-                url: "../conf/Ajax_bar_chart_1_.data.php",
+                url: "../conf/Ajax_Line_Chart_7.data.php",
                 dataType: 'json',
                 success: function (data) {
-                    _bar_chart_1_update(data)
+                    _Line_Chart_7_update(data)
                 },
                 error: function () {
                     // setTimeout(GetData, updateInterval);
@@ -1141,36 +887,53 @@
             });
         }
 
-        function _bar_chart_1_update(_data) {
+        function _Line_Chart_7_update(_data) {
             const dataset = _data.pay_load.dataset
 
-            $.plot('#bar_chart_1', [dataset['power']], {
+            $.plot('#Line_Chart_7', [dataset['daily_1building'],dataset['daily_2building'],dataset['daily_3building']], {
                 grid  : {
-                    borderWidth: 1,
+                    hoverable  : true,
                     borderColor: '#f3f3f3',
-                    tickColor  : '#f3f3f3'
+                    borderWidth: 1,
+                    tickColor  : '#f3f3f3',
                 },
                 series: {
-                    bars: {
-                        show: true, barWidth: 0.5, align: 'center',
+                    shadowSize: 0,
+                    lines     : {
+                        show: true
                     },
+                    points    : {
+                        show: false
+                    }
                 },
-                colors: ['#3c8dbc'],
+                tooltip: {
+                  show:true,
+                  content: "데이터 : %yL"
+                },
+                lines : {
+                    fill : false,
+                    color: ['#3c8dbc', '#f56954']
+                },
+                yaxis : {
+                    show: true
+                },
+
                 xaxis : {
                     ticks: _data.pay_load.create_at,
+                    show: true
                 }
             })
         }
 
-        Get_bar_chart_2_Data()
+        Get_Line_Chart_8_Data()
 
-        function Get_bar_chart_2_Data() {
+        function Get_Line_Chart_8_Data() {
             $.ajaxSetup({ cache: false });
             $.ajax({
-                url: "../conf/Ajax_bar_chart_2_.data.php",
+                url: "../conf/Ajax_Line_Chart_8.data.php",
                 dataType: 'json',
                 success: function (data) {
-                    _bar_chart_2_update(data)
+                    _Line_Chart_8_update(data)
                 },
                 error: function () {
                     // setTimeout(GetData, updateInterval);
@@ -1178,63 +941,45 @@
             });
         }
 
-        function _bar_chart_2_update(_data) {
+        function _Line_Chart_8_update(_data) {
             const dataset = _data.pay_load.dataset
 
-            $.plot('#bar_chart_2', [dataset['watertank']], {
+            $.plot('#Line_Chart_8', [dataset['daily_1building'],dataset['daily_2building'],dataset['daily_3building']], {
                 grid  : {
-                    borderWidth: 1,
+                    hoverable  : true,
                     borderColor: '#f3f3f3',
-                    tickColor  : '#f3f3f3'
+                    borderWidth: 1,
+                    tickColor  : '#f3f3f3',
                 },
                 series: {
-                    bars: {
-                        show: true, barWidth: 0.5, align: 'center',
+                    shadowSize: 0,
+                    lines     : {
+                        show: true
                     },
+                    points    : {
+                        show: false
+                    }
                 },
-                colors: ['#3c8dbc'],
+                tooltip: {
+                  show:true,
+                  content: "데이터 : %yL"
+                },
+                lines : {
+                    fill : false,
+                    color: ['#3c8dbc', '#f56954']
+                },
+                yaxis : {
+                    show: true
+                },
+
                 xaxis : {
                     ticks: _data.pay_load.create_at,
+                    show: true
                 }
             })
         }
 
-        Get_bar_chart_21_Data()
-
-        function Get_bar_chart_21_Data() {
-            $.ajaxSetup({ cache: false });
-            $.ajax({
-                url: "../conf/Ajax_bar_chart_21_.data.php",
-                dataType: 'json',
-                success: function (data) {
-                    _bar_chart_21_update(data)
-                },
-                error: function () {
-                    // setTimeout(GetData, updateInterval);
-                }
-            });
-        }
-
-        function _bar_chart_21_update(_data) {
-            const dataset = _data.pay_load.dataset
-
-            $.plot('#bar_chart_21', [dataset['watertank']], {
-                grid  : {
-                    borderWidth: 1,
-                    borderColor: '#f3f3f3',
-                    tickColor  : '#f3f3f3'
-                },
-                series: {
-                    bars: {
-                        show: true, barWidth: 0.5, align: 'center',
-                    },
-                },
-                colors: ['#3c8dbc'],
-                xaxis : {
-                    ticks: _data.pay_load.create_at,
-                }
-            })
-        }
+       
 
         Get_bar_chart_22_Data()
 

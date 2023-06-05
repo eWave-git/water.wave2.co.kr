@@ -25,7 +25,7 @@ include_once "../connect.php";
                                 <label for="exampleInputEmail1">농장명</label>
                                 <select class="custom-select rounded-0" id="md_id" name="md_id">
                                     <option value="">선택하세요.</option>
-                                    <option value="509">매일</option>
+                                    <option value="509">매일농장</option>
                                     <option value="9999">-</option>
                                 </select>
                             </div>
@@ -36,14 +36,10 @@ include_once "../connect.php";
                                 <label for="exampleInputEmail1">센서</label>
                                 <select class="custom-select rounded-0" id="sensor" name="sensor">
                                     <option value="">선택하세요.</option>
-                                    <option value="sum_room1">1동 누적</option>
-                                    <option value="time_room1">1동 시간대별</option>
-                                    <option value="sum_room2">2동 누적</option>
-                                    <option value="time_room2">2동 시간대별</option>
-                                    <option value="sum_room3">3동 누적</option>
-                                    <option value="time_room3">3동 시간대별</option>
-                                    <option value="sum_dataAll">전체 누적</option>
-                                    <option value="time_dataAll">전체 시간대별</option>
+                                    <option value="daily">일간데이터</option>
+                                    <option value="time">시간대별 데이터</option>
+                                    <option value="time_sum">시간대별 누적</option>
+                                    <option value="dataAll">전체 시간대별</option>
                                 </select>
                             </div>
 

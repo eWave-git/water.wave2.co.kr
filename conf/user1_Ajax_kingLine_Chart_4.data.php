@@ -2,14 +2,15 @@
 include_once "../connect.php";
 
 $query = "
-    select
-        DATE_FORMAT(create_at, '%m-%d %H:%i') as DATE,
+    SELECT
+        DATE_FORMAT(create_at, \"%y-%m-%d %H:%i\") as DF,
         data2
-    from mush.raw_data
-    where
-        address = 501 and board_number = 3  and
-        create_at >= now() - INTERVAL 4 hour
-    order by DATE asc;
+    from king.raw_data_upa2 
+    where address = 1000 
+    and board_number=5 
+    and create_at >= now() - INTERVAL 24 hour
+    group by  floor(DATE(DF)), floor(HOUR(DF)) ,floor(MINUTE(DF) / 10)
+    order by idx asc;
     "; 
 //create_at >= now() - INTERVAL 30 minute
 $result = mysqli_query($conn, $query);
@@ -25,7 +26,7 @@ $create_at_arr = array();
 foreach ($rows as $k => $v) {
     array_push($throughput_arr, array($k, $v['data2']));
     //array_push($throughput_arr, array($k, floor($v['data3'])));
-    array_push($create_at_arr, array($k, substr($v['DATE'],6,5)));
+    array_push($create_at_arr, array($k, substr($v['DF'],9,13)));
 }
 
 $throughput = array(
