@@ -20,7 +20,7 @@
             <div class="col-lg-2 col-12">
                 <div class="info-box bg-info">
                     <div class="info-box-content">
-                        <span class="info-box-text">4번 센서 온도</span>
+                        <span class="info-box-text">ID 4 - 온도</span>
                         <span class="info-box-number"><?php echo $row1['data1'];?> °C</span>
                         <div class="progress">
                             <div class="progress-bar" style="width: <?php echo $row1['data1'];?>%"></div>
@@ -32,9 +32,9 @@
                 </div>
             </div>
             <div class="col-lg-2 col-12">
-                <div class="info-box bg-success">
+                <div class="info-box bg-info">
                     <div class="info-box-content">
-                        <span class="info-box-text">4번 센서 습도</span>
+                        <span class="info-box-text">ID 4 - 습도</span>
                         <span class="info-box-number"><?php echo $row1['data2'];?> %</span>
                         <div class="progress">
                             <div class="progress-bar" style="width: <?php echo $row1['data2'];?>%"></div>
@@ -46,15 +46,15 @@
                 </div>
             </div>
             <div class="col-lg-2 col-12">
-                <div class="info-box bg-info">
+                <div class="info-box bg-success">
                     <div class="info-box-content">
-                        <span class="info-box-text">5번 센서 온도</span>
+                        <span class="info-box-text">ID 5 - 온도</span>
                         <span class="info-box-number"><?php echo $row2['data1'];?> °C </span>
                         <div class="progress">
                             <div class="progress-bar" style="width: <?php echo $row2['data1'];?> %"></div>
                         </div>
                         <span class="progress-description">
-                            조회 시점 : <?php echo substr($row1['create_at'],5,11);?>
+                            조회 시점 : <?php echo substr($row2['create_at'],5,11);?>
                         </span>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
             <div class="col-lg-2 col-12">
                 <div class="info-box bg-success">
                     <div class="info-box-content">
-                        <span class="info-box-text">5번 센서 습도</span>
+                        <span class="info-box-text">ID 5 - 습도</span>
                         <span class="info-box-number"><?php echo $row2['data2'];?> % </span>
                         <div class="progress">
                             <div class="progress-bar" style="width: <?php echo $row2['data2'];?>"></div>
@@ -74,33 +74,20 @@
                 </div>
             </div>
             <div class="col-lg-2 col-12">
-                <div class="info-box bg-info">
+                <div class="info-box bg-warning">
                     <div class="info-box-content">
-                        <span class="info-box-text">6번 센서 온도1</span>
+                        <span class="info-box-text">ID 6 - 배지온도</span>
                         <span class="info-box-number"><?php echo $row3['data1'];?> °C </span>
                         <div class="progress">
                             <div class="progress-bar" style="width: <?php echo $row3['data1'];?>"></div>
                         </div>
                         <span class="progress-description">
-                            조회 시점 : <?php echo substr($row2['create_at'],5,11);?>
+                            조회 시점 : <?php echo substr($row3['create_at'],5,11);?>
                         </span>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-2 col-12">
-                <div class="info-box bg-info">
-                    <div class="info-box-content">
-                        <span class="info-box-text">6번 센서 온도2</span>
-                        <span class="info-box-number"><?php echo $row3['data2'];?> °C </span>
-                        <div class="progress">
-                            <div class="progress-bar" style="width: <?php echo $row3['data2'];?>"></div>
-                        </div>
-                        <span class="progress-description">
-                            조회 시점 : <?php echo substr($row2['create_at'],5,11);?>
-                        </span>
-                    </div>
-                </div>
-            </div>
+            
         </div>
         <!-- /.row -->
         <!-- Main row -->
@@ -137,7 +124,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     <i class="far fa-chart-bar"></i>
-                                                     4번센서 온도 변화량(°C)
+                                                    ID 4 - 온도 (°C)
                                                 </h3>
 
                                                 <div class="card-tools">
@@ -161,7 +148,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     <i class="far fa-chart-bar"></i>
-                                                    4번센서 습도 변화량 (%)
+                                                    ID 4 - 습도 (%)
                                                 </h3>
 
                                                 <div class="card-tools">
@@ -187,7 +174,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     <i class="far fa-chart-bar"></i>
-                                                    5번센서 온도 변화량(°C)
+                                                    ID 5 - 온도 (°C)
                                                 </h3>
 
                                                 <div class="card-tools">
@@ -211,7 +198,7 @@
                                             <div class="card-header">
                                                 <h3 class="card-title">
                                                     <i class="far fa-chart-bar"></i>
-                                                    5번센서 습도 변화량 (%)
+                                                    ID 5 - 습도 (%)
                                                 </h3>
 
                                                 <div class="card-tools">
@@ -228,6 +215,31 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="col-lg-6 col-sm-12">
+                                        <!-- Line chart -->
+                                        <div class="card card-primary card-outline">
+                                            <div class="card-header">
+                                                <h3 class="card-title">
+                                                    <i class="far fa-chart-bar"></i>
+                                                    ID 6 - 배지온도 (°C)
+                                                </h3>
+
+                                                <div class="card-tools">
+                                                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                        <i class="fas fa-minus"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                        <i class="fas fa-times"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div id="kingLine_Chart_5" style="height: 300px;"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
                             </div>
 
@@ -473,5 +485,60 @@
                 }
             })
         }
+
+        Get_kingLine_Chart_5_Data()
+
+        function Get_kingLine_Chart_5_Data() {
+            $.ajaxSetup({ cache: false });
+            $.ajax({
+                url: "../conf/user1_Ajax_kingLine_Chart_5.data.php",
+                dataType: 'json',
+                success: function (data) {
+                    _kingLine_Chart_5_update(data)
+                },
+                error: function () {
+                    // setTimeout(GetData, updateInterval);
+                }
+            });
+        }
+
+        function _kingLine_Chart_5_update(_data) {
+            const dataset = _data.pay_load.dataset
+
+            $.plot('#kingLine_Chart_5', [dataset['throughput']], {
+                grid  : {
+                    hoverable  : true,
+                    borderColor: '#f3f3f3',
+                    borderWidth: 1,
+                    tickColor  : '#f3f3f3',
+                },
+                series: {
+                    shadowSize: 0,
+                    lines     : {
+                        show: true
+                    },
+                    points    : {
+                        show: false
+                    }
+                },
+                tooltip: {
+                  show:true,
+                  content: "데이터 : %y 도 <br/> 시간 : %x"
+                },
+                lines : {
+                    fill : false,
+                    color: ['#3c8dbc', '#f56954']
+                },
+                yaxis : {
+                    show: true
+                },
+
+                xaxis : {
+                    ticks: _data.pay_load.create_at,
+                    show: true
+                }
+            })
+        }
+
     });
 </script>
