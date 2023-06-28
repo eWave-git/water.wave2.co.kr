@@ -677,7 +677,7 @@
         function _Line_Chart_3_update(_data) {
             const dataset = _data.pay_load.dataset
 
-            $.plot('#Line_Chart_3', [dataset['water_in'],dataset['water_out']], {
+            $.plot('#Line_Chart_3', [dataset['daily_2building']], {
                 grid  : {
                     hoverable  : true,
                     borderColor: '#f3f3f3',
