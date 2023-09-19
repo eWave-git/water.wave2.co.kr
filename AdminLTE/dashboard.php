@@ -61,146 +61,51 @@
 
 <section class="content">
     <div class="container-fluid">
-        <!-- Small boxes (Stat box) -->
-        동별 온습도
+    <h4>물탱크실 온습도 측정 : 겨울철 대비</h4>
         <div class="row">
-            <div class="col-lg-auto col-12">
+            <div class="col-lg-6 col-12">
                 <div class="info-box bg-info">
+<!--                    <span class="info-box-icon"><i class="far fa-bookmark"></i></span>-->
+
                     <div class="info-box-content">
-                        <span class="info-box-text">1동 온도</span>
+                        <span class="info-box-text">온도</span>
                         <span class="info-box-number"><?php echo $rowline1['data1'];?> °C</span>
 
                         <div class="progress">
                             <div class="progress-bar" style="width: <?php echo $rowline1['data1'];?>%"></div>
                         </div>
                         <span class="progress-description">
-                            Last : <?php echo substr($rowline1['create_at'],5,11);?> <!-- ($row['create_at'],11,8) -->
+                            조회 시점 : <?php echo substr($rowline1['create_at'],5,11);?> <!-- ($row['create_at'],11,8) -->
                         </span>
                     </div>
+                    <!-- /.info-box-content -->
                 </div>
             </div>
-            <div class="col-lg-auto col-12">
+            <!-- ./col -->
+            <div class="col-lg-6 col-12">
                 <div class="info-box bg-info">
+<!--                    <span class="info-box-icon"><i class="far fa-thumbs-up"></i></span>-->
+
                     <div class="info-box-content">
-                        <span class="info-box-text">1동 습도</span>
+                        <span class="info-box-text">습도</span>
                         <span class="info-box-number"><?php echo $rowline1['data2'];?> %</span>
 
                         <div class="progress">
                             <div class="progress-bar" style="width: <?php echo $rowline1['data2'];?>%"></div>
                         </div>
                         <span class="progress-description">
-                            Last : <?php echo substr($rowline1['create_at'],5,11);?>
+                            조회 시점 : <?php echo substr($rowline1['create_at'],5,11);?>
                         </span>
                     </div>
+                    <!-- /.info-box-content -->
                 </div>
+                <!-- /.info-box -->
             </div>
-            <div class="col-lg-auto col-12">
-                <div class="info-box bg-info">
-                    <div class="info-box-content">
-                        <span class="info-box-text">1동 THI</span>
-                        <span class="info-box-number"><?php echo $rowline1['data8'];?> Point </span>
+            <!-- ./col -->
 
-                        <div class="progress">
-                            <div class="progress-bar" style="width: <?php echo $rowline1['data8'];?>%"></div>
-                        </div>
-                        <span class="progress-description">
-                            Last : <?php echo substr($rowline1['create_at'],5,11);?>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-auto col-12">
-                <div class="info-box bg-success">
-                    <div class="info-box-content">
-                        <span class="info-box-text">2동 온도</span>
-                        <span class="info-box-number"><?php echo $rowline1['data2'];?> %</span>
-
-                        <div class="progress">
-                            <div class="progress-bar" style="width: <?php echo $rowline1['data2'];?>"></div>
-                        </div>
-                        <span class="progress-description">
-                            Last : <?php echo substr($rowline1['create_at'],5,11);?>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-auto col-12">
-                <div class="info-box bg-success">
-                    <div class="info-box-content">
-                        <span class="info-box-text">2동 습도</span>
-                        <span class="info-box-number"><?php echo $rowline1['data2'];?> %</span>
-
-                        <div class="progress">
-                            <div class="progress-bar" style="width: <?php echo $rowline1['data2'];?>"></div>
-                        </div>
-                        <span class="progress-description">
-                            Last : <?php echo substr($rowline1['create_at'],5,11);?>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-auto col-12">
-                <div class="info-box bg-success">
-                    <div class="info-box-content">
-                        <span class="info-box-text">2동 THI</span>
-                        <span class="info-box-number"><?php echo $rowline1['data2'];?> %</span>
-
-                        <div class="progress">
-                            <div class="progress-bar" style="width: <?php echo $rowline1['data2'];?>"></div>
-                        </div>
-                        <span class="progress-description">
-                            Last : <?php echo substr($rowline1['create_at'],5,11);?>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-auto col-12">
-                <div class="info-box bg-warning">
-                    <div class="info-box-content">
-                        <span class="info-box-text">3동 온도</span>
-                        <span class="info-box-number"><?php echo $rowline1['data2'];?> %</span>
-
-                        <div class="progress">
-                            <div class="progress-bar" style="width: <?php echo $rowline1['data2'];?>"></div>
-                        </div>
-                        <span class="progress-description">
-                            Last : <?php echo substr($rowline1['create_at'],5,11);?>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-auto col-12">
-                <div class="info-box bg-warning">
-                    <div class="info-box-content">
-                        <span class="info-box-text">3동 습도</span>
-                        <span class="info-box-number"><?php echo $rowline1['data2'];?> %</span>
-
-                        <div class="progress">
-                            <div class="progress-bar" style="width: <?php echo $rowline1['data2'];?>"></div>
-                        </div>
-                        <span class="progress-description">
-                            Last : <?php echo substr($rowline1['create_at'],5,11);?>
-                        </span>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-auto col-12">
-                <div class="info-box bg-warning">
-                    <div class="info-box-content">
-                        <span class="info-box-text">3동 THI</span>
-                        <span class="info-box-number"><?php echo $rowline1['data2'];?> %</span>
-
-                        <div class="progress">
-                            <div class="progress-bar" style="width: <?php echo $rowline1['data2'];?>"></div>
-                        </div>
-                        <span class="progress-description">
-                            Last : <?php echo substr($rowline1['create_at'],5,11);?>
-                        </span>
-                    </div>
-                </div>
-            </div>
         </div>
-    </div>
+        <!-- /.row -->
+        <!-- Main row -->            
     
 <!-------------------------------------------------------------------------------------------------------------------------------------------------------------------------->
     
@@ -786,7 +691,7 @@
         function _Line_Chart_5_update(_data) {
             const dataset = _data.pay_load.dataset
 
-            $.plot('#Line_Chart_5', [dataset['water_in'],dataset['water_out']], {
+            $.plot('#Line_Chart_5', [dataset['daily_3building']], {
                 grid  : {
                     hoverable  : true,
                     borderColor: '#f3f3f3',

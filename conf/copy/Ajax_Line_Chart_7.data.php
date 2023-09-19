@@ -3,11 +3,11 @@ include_once "../connect.php";
 
 $query = "
     SELECT idx, create_at, date_format(create_at, \"%m-%d\") as DF,
-        (MAX(IF(board_number=2, data3, NULL)) - MIN(IF(board_number=2, data3, NULL)) )*10 as daily_1building,
-        (MAX(IF(board_number=2, data4, NULL)) - MIN(IF(board_number=2, data4, NULL)) )*10 as daily_2building,
-        (MAX(IF(board_number=3, data3, NULL)) - MIN(IF(board_number=3, data3, NULL)) )*10 as daily_3building
+        (MAX(IF(board_number=3, data3, NULL)) - MIN(IF(board_number=3, data3, NULL)) )*10 as daily_1building,
+        (MAX(IF(board_number=3, data4, NULL)) - MIN(IF(board_number=3, data4, NULL)) )*10 as daily_2building,
+        (MAX(IF(board_number=2, data3, NULL)) - MIN(IF(board_number=2, data3, NULL)) )*10 as daily_3building
     FROM water.raw_data
-    WHERE create_at >= \"2023-09-14\" and create_at < current_date()
+    WHERE create_at >= \"2023-05-13\" and create_at < current_date()
     group by DF
     ORDER BY idx asc;
     "; 
@@ -46,7 +46,7 @@ $daily_1building = array(
 
 $daily_2building = array(
     'data' => $daily_2building_arr,
-    'color'=>'#3c8dbc',
+    'color'=>'#000000',
 );
 
 $daily_3building = array(

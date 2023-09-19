@@ -4,7 +4,7 @@ include_once "../connect.php";
 $query = "
     SELECT idx, create_at, 
         DATE_FORMAT(create_at, \"%m-%d %H:00\") as DF,
-        (MAX(IF(board_number=2, data3, NULL)) - MIN(IF(board_number=2, data3, NULL)) )*10 as hour_1building
+        (MAX(IF(board_number=3, data3, NULL)) - MIN(IF(board_number=3, data3, NULL)) )*10 as hour_1building
     FROM water.raw_data
     where create_at < current_date() and create_at > current_date() - interval 1 day
     group by DF

@@ -2,13 +2,12 @@
 include_once "../connect.php";
 
 $query = "
-    SELECT idx, create_at, 
-        DATE_FORMAT(create_at, \"%m-%d %H:00\") as DF,
-        (MAX(IF(board_number=2, data3, NULL)) - MIN(IF(board_number=2, data3, NULL)) )*10 as hour_1building
-    FROM water.raw_data
-    where create_at < current_date() and create_at > current_date() - interval 1 day
-    group by DF
-    order by idx asc;
+SELECT 
+DATE_FORMAT(create_at, \"%H:00\") as DF,
+(MAX(IF(board_number=3, data3, NULL)) - MIN(IF(board_number=3, data3, NULL)) )*10 as room_1
+FROM water.raw_data
+where create_at > current_date()
+group by DF;
     ";
 
 
@@ -19,23 +18,15 @@ $rows = array();
 while($row = mysqli_fetch_array($result))
     $rows[] = $row;
 
-
-// $i =0;
-// while($row = mysqli_fetch_array($result)) {
-//     if ($i > 0) {
-//         $rows[] = $row;
-//     }
-//     $i++;
-// }
-
 $pressure_in_arr = array();
 $pressure_out_arr = array();
 $create_at_arr = array();
 
 foreach ($rows as $k => $v) {
-    array_push($pressure_in_arr, array($k, $v['hour_1building']));
-//    array_push($pressure_out_arr, array($k, $v['hour_2building']));
-    array_push($create_at_arr, array($k, substr($v['DF'],5,11)));
+    array_push($pressure_in_arr, array($k, $v['room_1']));
+//    array_push($pressure_in_arr, array($k, floor($v['data2'])));
+//    array_push($pressure_out_arr, array($k, $v['good']));
+    array_push($create_at_arr, array($k, substr($v['DF'],0,3)));
 }
 
 $pressure_in = array(

@@ -2,14 +2,15 @@
 include_once "../connect.php";
 
 $query = "
-    SELECT idx, create_at, date_format(create_at, \"%m-%d\") as DF,
-        (MAX(IF(board_number=2, data3, NULL)) - MIN(IF(board_number=2, data3, NULL)) )*10 as daily_1building,
-        (MAX(IF(board_number=2, data4, NULL)) - MIN(IF(board_number=2, data4, NULL)) )*10 as daily_2building,
-        (MAX(IF(board_number=3, data3, NULL)) - MIN(IF(board_number=3, data3, NULL)) )*10 as daily_3building
+    SELECT idx, create_at, 
+        DATE_FORMAT(create_at, \"%m-%d %H:00\") as DF,
+        (MAX(IF(board_number=3, data3, NULL)) - MIN(IF(board_number=3, data3, NULL)) )*10 as hour_1building,
+        (MAX(IF(board_number=3, data4, NULL)) - MIN(IF(board_number=3, data4, NULL)) )*10 as hour_2building,
+        (MAX(IF(board_number=2, data3, NULL)) - MIN(IF(board_number=2, data3, NULL)) )*10 as hour_3building
     FROM water.raw_data
-    WHERE create_at >= \"2023-09-14\" and create_at < current_date()
+    where create_at < current_date() and create_at > current_date() - interval 1 day
     group by DF
-    ORDER BY idx asc;
+    order by idx asc;
     "; 
 //create_at >= now() - INTERVAL 30 minute
 $result = mysqli_query($conn, $query);
@@ -33,10 +34,10 @@ $daily_3building_arr = array();
 $create_at_arr = array();
 
 foreach ($rows as $k => $v) {
-    array_push($daily_1building_arr, array($k, ($v['daily_1building'])));
-    array_push($daily_2building_arr, array($k, ($v['daily_2building'])));
-    array_push($daily_3building_arr, array($k, ($v['daily_3building'])));
-    array_push($create_at_arr, array($k, substr($v['DF'],1,5)));
+    array_push($daily_1building_arr, array($k, ($v['hour_1building'])));
+    array_push($daily_2building_arr, array($k, ($v['hour_2building'])));
+    array_push($daily_3building_arr, array($k, ($v['hour_3building'])));
+    array_push($create_at_arr, array($k, substr($v['DF'],5,11)));
 }
 
 $daily_1building = array(
@@ -46,7 +47,7 @@ $daily_1building = array(
 
 $daily_2building = array(
     'data' => $daily_2building_arr,
-    'color'=>'#3c8dbc',
+    'color'=>'#000000',
 );
 
 $daily_3building = array(
