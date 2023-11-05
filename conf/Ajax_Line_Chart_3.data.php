@@ -36,7 +36,7 @@ foreach ($rows as $k => $v) {
     array_push($daily_1building_arr, array($k, ($v['daily_1building'])));
     array_push($daily_2building_arr, array($k, ($v['daily_2building'])));
     array_push($daily_3building_arr, array($k, ($v['daily_3building'])));
-    array_push($create_at_arr, array($k, substr($v['DF'],1,5)));
+    array_push($create_at_arr, array($k, substr($v['DF'],0,5)));
 }
 
 $daily_1building = array(

@@ -280,7 +280,9 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
+                            <div class="row">
                                 <div class="col-lg-6 col-sm-12">
                                     <!-- Line chart -->
                                     <div class="card card-primary card-outline">
@@ -328,8 +330,109 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-12">
+                                    <!-- Line chart -->
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <i class="far fa-chart-bar"></i>
+                                                9 : 4동 음수섭취량
+                                            </h3>
 
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="Line_Chart_9" style="height: 300px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-sm-12">
+                                    <!-- Line chart -->
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <i class="far fa-chart-bar"></i>
+                                                10 : 4동 시간대별 음수량
+                                            </h3>
+
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="Line_Chart_10" style="height: 300px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-12">
+                                    <!-- Line chart -->
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <i class="far fa-chart-bar"></i>
+                                                11 : 5동 음수섭취량
+                                            </h3>
+
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="Line_Chart_11" style="height: 300px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-6 col-sm-12">
+                                    <!-- Line chart -->
+                                    <div class="card card-primary card-outline">
+                                        <div class="card-header">
+                                            <h3 class="card-title">
+                                                <i class="far fa-chart-bar"></i>
+                                                12 : 5동 시간대별 음수량
+                                            </h3>
+
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                                    <i class="fas fa-minus"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-tool" data-card-widget="remove">
+                                                    <i class="fas fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="card-body">
+                                            <div id="Line_Chart_12" style="height: 300px;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">    
                                 <div class="col-lg-2 col-sm-12">
                                     <!-- Bootstrap Switch -->
                                     <div class="card card-secondary">
@@ -359,9 +462,6 @@
                                     </div>
                                     <!-- /.card -->
                                 </div>
-
-
-
                             </div>
                         </div>
 
@@ -884,7 +984,214 @@
             })
         }
 
-       
+        Get_Line_Chart_9_Data()
+
+        function Get_Line_Chart_9_Data() {
+            $.ajaxSetup({ cache: false });
+            $.ajax({
+                url: "../conf/Ajax_Line_Chart_9.data.php",
+                dataType: 'json',
+                success: function (data) {
+                    _Line_Chart_9_update(data)
+                },
+                error: function () {
+                    // setTimeout(GetData, updateInterval);
+                }
+            });
+        }
+
+        function _Line_Chart_9_update(_data) {
+            const dataset = _data.pay_load.dataset
+
+            $.plot('#Line_Chart_9', [dataset['daily_4building']], {
+                grid  : {
+                    hoverable  : true,
+                    borderColor: '#f3f3f3',
+                    borderWidth: 1,
+                    tickColor  : '#f3f3f3',
+                },
+                series: {
+                    shadowSize: 0,
+                    lines     : {
+                        show: true
+                    },
+                    points    : {
+                        show: false
+                    }
+                },
+                tooltip: {
+                    show:true,
+                    content: "섭취량 : %yL<br /> 시간 : %x"
+                },
+                lines : {
+                    fill : false,
+                    color: ['#3c8dbc', '#f56954']
+                },
+                yaxis : {
+                    show: true
+                },
+
+                xaxis : {
+                    ticks: _data.pay_load.create_at,
+                    show: true
+                }
+            })
+        }
+
+        Get_Line_Chart_10_Data()
+
+        function Get_Line_Chart_10_Data() {
+            $.ajaxSetup({ cache: false });
+            $.ajax({
+                url: "../conf/Ajax_Line_Chart_10.data.php",
+                dataType: 'json',
+                success: function (data) {
+                    _Line_Chart_10_update(data)
+                },
+                error: function () {
+                    // setTimeout(GetData, updateInterval);
+                }
+            });
+        }
+
+        function _Line_Chart_10_update(_data) {
+            const dataset = _data.pay_load.dataset
+
+            $.plot('#Line_Chart_10', [dataset['throughput'],], {
+                grid  : {
+                    hoverable  : true,
+                    borderColor: '#f3f3f3',
+                    borderWidth: 1,
+                    tickColor  : '#f3f3f3',
+                },
+                series: {
+                    shadowSize: 0,
+                    lines     : {
+                        show: true
+                    },
+                    points    : {
+                        show: false
+                    }
+                },
+                lines : {
+                    fill : false,
+                    color: ['#3c8dbc', '#f56954']
+                },
+                yaxis : {
+                    show: true
+                },
+
+                xaxis : {
+                    ticks: _data.pay_load.create_at,
+                    show: true
+                }
+            })
+        }       
+
+
+        Get_Line_Chart_11_Data()
+
+        function Get_Line_Chart_11_Data() {
+            $.ajaxSetup({ cache: false });
+            $.ajax({
+                url: "../conf/Ajax_Line_Chart_11.data.php",
+                dataType: 'json',
+                success: function (data) {
+                    _Line_Chart_11_update(data)
+                },
+                error: function () {
+                    // setTimeout(GetData, updateInterval);
+                }
+            });
+        }
+
+        function _Line_Chart_11_update(_data) {
+            const dataset = _data.pay_load.dataset
+
+            $.plot('#Line_Chart_11', [dataset['daily_5building']], {
+                grid  : {
+                    hoverable  : true,
+                    borderColor: '#f3f3f3',
+                    borderWidth: 1,
+                    tickColor  : '#f3f3f3',
+                },
+                series: {
+                    shadowSize: 0,
+                    lines     : {
+                        show: true
+                    },
+                    points    : {
+                        show: false
+                    }
+                },
+                tooltip: {
+                    show:true,
+                    content: "섭취량 : %yL<br /> 시간 : %x"
+                },
+                lines : {
+                    fill : false,
+                    color: ['#3c8dbc', '#f56954']
+                },
+                yaxis : {
+                    show: true
+                },
+
+                xaxis : {
+                    ticks: _data.pay_load.create_at,
+                    show: true
+                }
+            })
+        }
+
+        Get_Line_Chart_12_Data()
+
+        function Get_Line_Chart_12_Data() {
+            $.ajaxSetup({ cache: false });
+            $.ajax({
+                url: "../conf/Ajax_Line_Chart_12.data.php",
+                dataType: 'json',
+                success: function (data) {
+                    _Line_Chart_12_update(data)
+                },
+                error: function () {
+                    // setTimeout(GetData, updateInterval);
+                }
+            });
+        }
+
+        function _Line_Chart_12_update(_data) {
+            const dataset = _data.pay_load.dataset
+
+            $.plot('#Line_Chart_12', [dataset['throughput'],], {
+                grid  : {
+                    hoverable  : true,
+                    borderColor: '#f3f3f3',
+                    borderWidth: 1,
+                    tickColor  : '#f3f3f3',
+                },
+                series: {
+                    shadowSize: 0,
+                    lines     : {
+                        show: true
+                    },
+                    points    : {
+                        show: false
+                    }
+                },
+                lines : {
+                    fill : false,
+                    color: ['#3c8dbc', '#f56954']
+                },
+                yaxis : {
+                    show: true
+                },
+
+                xaxis : {
+                    ticks: _data.pay_load.create_at,
+                    show: true
+                }
+            })
+        }               
 
         Get_bar_chart_22_Data()
 
