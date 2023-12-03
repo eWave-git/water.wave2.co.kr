@@ -591,7 +591,7 @@
                 },
                 tooltip: {
                   show:true,
-                  content: "양 : %yL <br /> 시간 : %x"
+                  content: "양 : %yL <br /> 날짜 : %x"
                 },
                 lines : {
                     fill : false,
@@ -700,7 +700,7 @@
                 },
                 tooltip: {
                     show:true,
-                    content: "섭취량 : %yL<br /> 시간 : %x"
+                    content: "섭취량 : %yL<br /> 날짜 : %x"
                 },
                 lines : {
                     fill : false,
@@ -809,7 +809,7 @@
                 },
                 tooltip: {
                     show:true,
-                    content: "섭취량 : %yL<br /> 시간 : %x"
+                    content: "섭취량 : %yL<br /> 날짜 : %x"
                 },
                 lines : {
                     fill : false,
@@ -1021,7 +1021,7 @@
                 },
                 tooltip: {
                     show:true,
-                    content: "섭취량 : %yL<br /> 시간 : %x"
+                    content: "섭취량 : %yL<br /> 날짜 : %x"
                 },
                 lines : {
                     fill : false,
@@ -1126,7 +1126,7 @@
                 },
                 tooltip: {
                     show:true,
-                    content: "섭취량 : %yL<br /> 시간 : %x"
+                    content: "섭취량 : %yL<br /> 날짜 : %x"
                 },
                 lines : {
                     fill : false,
