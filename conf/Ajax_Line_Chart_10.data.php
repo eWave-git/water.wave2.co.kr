@@ -4,9 +4,9 @@ include_once "../connect.php";
 $query = "
     SELECT idx, created_at, 
         DATE_FORMAT(created_at, \"%m-%d %H:00\") as DF,
-        (MAX(IF(board_number=4, data1, NULL)) - MIN(IF(board_number=4, data1, NULL)) ) as hour_4building
+        (MAX(IF(board_number=4, data1, NULL)) - MIN(IF(board_number=4, data1, NULL)) ) as hour_5building
     FROM upa.raw_data
-    where created_at < current_date() and created_at > current_date() - interval 1 day and address = '509' and board_type = 35
+    where created_at < current_date() and created_at > current_date() - interval 1 day  and address = '2300' and board_type = 6
     group by DF
     order by idx asc;
     "; 
@@ -19,11 +19,10 @@ while($row = mysqli_fetch_array($result))
 
 
 $throughput_arr = array();
-
 $create_at_arr = array();
 
 foreach ($rows as $k => $v) {
-    array_push($throughput_arr, array($k, $v['hour_4building']));
+    array_push($throughput_arr, array($k, $v['hour_5building']));
 
     array_push($create_at_arr, array($k, substr($v['DF'],5,11)));
 }

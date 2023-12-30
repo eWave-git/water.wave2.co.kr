@@ -2,12 +2,14 @@
 include_once "../connect.php";
 
 $query = "
-    SELECT idx, created_at, date_format(created_at, \"%m-%d\") as DF,
-        (MAX(IF(board_number=5, data1, NULL)) - MIN(IF(board_number=5, data1, NULL)) ) as daily_5building
-    FROM upa.raw_data
-    WHERE created_at >= \"2023-11-11\" and created_at < current_date() and address = '509' and board_type = 35
-    group by DF
-    ORDER BY idx asc;
+SELECT idx, create_at, date_format(create_at, \"%m-%d\") as DF,
+    (MAX(IF(board_number=2, data3, NULL)) - MIN(IF(board_number=2, data3, NULL)) )*10 as daily_1building,
+    (MAX(IF(board_number=2, data4, NULL)) - MIN(IF(board_number=2, data4, NULL)) )*10 as daily_2building,
+    (MAX(IF(board_number=3, data3, NULL)) - MIN(IF(board_number=3, data3, NULL)) )*10 as daily_3building
+FROM water.raw_data
+WHERE create_at >= \"2023-12-12\" and create_at < current_date()
+group by DF
+ORDER BY idx asc;
     "; 
 //create_at >= now() - INTERVAL 30 minute
 $result = mysqli_query($conn, $query);
@@ -31,7 +33,9 @@ $daily_3building_arr = array();
 $create_at_arr = array();
 
 foreach ($rows as $k => $v) {
-    array_push($daily_1building_arr, array($k, ($v['daily_5building'])));
+    array_push($daily_1building_arr, array($k, ($v['daily_1building'])));
+    array_push($daily_2building_arr, array($k, ($v['daily_2building'])));
+    array_push($daily_3building_arr, array($k, ($v['daily_3building'])));
     array_push($create_at_arr, array($k, substr($v['DF'],0,5)));
 }
 
@@ -42,7 +46,7 @@ $daily_1building = array(
 
 $daily_2building = array(
     'data' => $daily_2building_arr,
-    'color'=>'#3c8dbc',
+    'color'=>'#000000',
 );
 
 $daily_3building = array(
@@ -56,7 +60,7 @@ $daily_3building = array(
 
 $response = array();
 $response['pay_load']['success'] = "success";
-$response['pay_load']['dataset'] = array('daily_5building'=>$daily_1building, );
+$response['pay_load']['dataset'] = array('daily_1building'=>$daily_1building, 'daily_2building'=>$daily_2building, 'daily_3building'=>$daily_3building,);
 $response['pay_load']['create_at'] = $create_at_arr;
 
 echo json_encode($response);

@@ -1,63 +1,4 @@
-<?php
-    $sql = "select * from water.control_data where address=99999999 order by create_at desc limit 1";
-    $result = mysqli_query($conn, $sql);
-    $row1 = mysqli_fetch_array($result);
 
-    $relay1 = !$row1['relay1'] && "" ? 0 : $row1['relay1'];
-
-
-    if ($relay1 == 1) {
-        $do_str_1 = "작동중";
-        $do_css_1 = "bg-gradient-primary";
-        $do_checked_1 = "checked";
-    } else if ($relay1 == 0) {
-        $do_str_1 = "정지";
-        $do_css_1 = "bg-gradient-danger";
-        $do_checked_1 = "";
-    } else {
-        $do_str_1 = "정지";
-        $do_css_1 = "bg-gradient-danger";
-        $do_checked_1 = "";
-    }
-
-    $sql = "select * from water.control_data where address=99999999 order by create_at desc limit 1";
-    $result = mysqli_query($conn, $sql);
-    $row2 = mysqli_fetch_array($result);
-
-    $relay2 = !$row2['relay2'] && "" ? 0 : $row2['relay2'];
-
-
-    if ($relay2 == 1) {
-        $do_str_2 = "작동중";
-        $do_css_2 = "bg-gradient-primary";
-        $do_checked_2 = "checked";
-    } else if ($relay2 == 0) {
-        $do_str_2 = "정지";
-        $do_css_2 = "bg-gradient-danger";
-        $do_checked_2 = "";
-    } else {
-        $do_str_2 = "정지";
-        $do_css_2 = "bg-gradient-danger";
-        $do_checked_2 = "";
-    }
-?>
-
-<?php
-    $sql1 = "select *, 
-            round(1.8 * data1 + 32 -0.55*(1-data2/100)*(1.8*data1-26),0) as data8 
-            from water.raw_data 
-            where address = 509 and board_number=3 
-            order by create_at 
-            desc limit 1";
-
-    $result1 = mysqli_query($conn, $sql1);
-    $rowline1 = mysqli_fetch_array($result1);
-
-//    echo $row['data1'];
-//    echo $row['tds_out'];
-//    echo $row['pressure_in'];
-//    echo $row['pressure_out'];
-?>
 
 <section class="content">
     <div class="container-fluid">
@@ -140,7 +81,7 @@
                                         <div class="card-header">
                                             <h3 class="card-title">
                                                 <i class="far fa-chart-bar"></i>
-                                                1 : 1동 음수섭취량
+                                                01 : 1동 음수섭취량
                                             </h3>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -163,7 +104,7 @@
                                         <div class="card-header">
                                             <h3 class="card-title">
                                                 <i class="far fa-chart-bar"></i>
-                                                2: 1동 시간대별 음수량
+                                                02: 1동 시간대별 음수량
                                             </h3>
 
                                             <div class="card-tools">
@@ -189,7 +130,7 @@
                                         <div class="card-header">
                                             <h3 class="card-title">
                                                 <i class="far fa-chart-bar"></i>
-                                                3 : 2동 음수섭취량
+                                                03 : 2동 음수섭취량
                                             </h3>
 
                                             <div class="card-tools">
@@ -213,7 +154,7 @@
                                         <div class="card-header">
                                             <h3 class="card-title">
                                                 <i class="far fa-chart-bar"></i>
-                                                4 : 2동 시간대별 음수량
+                                                04 : 2동 시간대별 음수량
                                             </h3>
 
                                             <div class="card-tools">
@@ -239,7 +180,7 @@
                                         <div class="card-header">
                                             <h3 class="card-title">
                                                 <i class="far fa-chart-bar"></i>
-                                                5 : 3동 음수섭취량
+                                                05 : 3동 음수섭취량
                                             </h3>
 
                                             <div class="card-tools">
@@ -263,7 +204,7 @@
                                         <div class="card-header">
                                             <h3 class="card-title">
                                                 <i class="far fa-chart-bar"></i>
-                                                6 : 3동 시간대별 음수량
+                                                06 : 3동 시간대별 음수량
                                             </h3>
 
                                             <div class="card-tools">
@@ -282,6 +223,8 @@
                                 </div>
                             </div>
 
+
+
                             <div class="row">
                                 <div class="col-lg-6 col-sm-12">
                                     <!-- Line chart -->
@@ -289,7 +232,7 @@
                                         <div class="card-header">
                                             <h3 class="card-title">
                                                 <i class="far fa-chart-bar"></i>
-                                                7 : 1(빨강),2(검정),3(초록)동 일간
+                                                07 : 4동 음수섭취량
                                             </h3>
 
                                             <div class="card-tools">
@@ -313,7 +256,7 @@
                                         <div class="card-header">
                                             <h3 class="card-title">
                                                 <i class="far fa-chart-bar"></i>
-                                                8 : 1(빨강),2(검정),3(초록)동 시간당
+                                                08 : 4동 시간대별 음수량
                                             </h3>
 
                                             <div class="card-tools">
@@ -339,7 +282,7 @@
                                         <div class="card-header">
                                             <h3 class="card-title">
                                                 <i class="far fa-chart-bar"></i>
-                                                9 : 4동 음수섭취량
+                                                09 : 5동 음수섭취량
                                             </h3>
 
                                             <div class="card-tools">
@@ -363,7 +306,7 @@
                                         <div class="card-header">
                                             <h3 class="card-title">
                                                 <i class="far fa-chart-bar"></i>
-                                                10 : 4동 시간대별 음수량
+                                                10 : 5동 시간대별 음수량
                                             </h3>
 
                                             <div class="card-tools">
@@ -389,7 +332,7 @@
                                         <div class="card-header">
                                             <h3 class="card-title">
                                                 <i class="far fa-chart-bar"></i>
-                                                11 : 5동 음수섭취량
+                                                11 : 1(R),2(B),3(G)동 일간
                                             </h3>
 
                                             <div class="card-tools">
@@ -413,7 +356,7 @@
                                         <div class="card-header">
                                             <h3 class="card-title">
                                                 <i class="far fa-chart-bar"></i>
-                                                12 : 5동 시간대별 음수량
+                                                12 : 1(R),2(B),3(G)동 시간당
                                             </h3>
 
                                             <div class="card-tools">
@@ -628,7 +571,7 @@
         function _Line_Chart_2_update(_data) {
             const dataset = _data.pay_load.dataset
 
-            $.plot('#Line_Chart_2', [dataset['pressure_in'],dataset['pressure_out']], {
+            $.plot('#Line_Chart_2', [dataset['time_in'],], {
                 grid  : {
                     hoverable  : true,
                     borderColor: '#f3f3f3',
@@ -736,7 +679,7 @@
         function _Line_Chart_4_update(_data) {
             const dataset = _data.pay_load.dataset
 
-            $.plot('#Line_Chart_4', [dataset['throughput']], {
+            $.plot('#Line_Chart_4', [dataset['time_in']], {
                 grid  : {
                     hoverable  : true,
                     borderColor: '#f3f3f3',
@@ -845,7 +788,7 @@
         function _Line_Chart_6_update(_data) {
             const dataset = _data.pay_load.dataset
 
-            $.plot('#Line_Chart_6', [dataset['throughput'],], {
+            $.plot('#Line_Chart_6', [dataset['time_in']], {
                 grid  : {
                     hoverable  : true,
                     borderColor: '#f3f3f3',
@@ -876,6 +819,8 @@
             })
         }
 
+
+
         Get_Line_Chart_7_Data()
 
         function Get_Line_Chart_7_Data() {
@@ -895,7 +840,7 @@
         function _Line_Chart_7_update(_data) {
             const dataset = _data.pay_load.dataset
 
-            $.plot('#Line_Chart_7', [dataset['daily_1building'],dataset['daily_2building'],dataset['daily_3building']], {
+            $.plot('#Line_Chart_7', [dataset['daily_4building']], {
                 grid  : {
                     hoverable  : true,
                     borderColor: '#f3f3f3',
@@ -912,8 +857,8 @@
                     }
                 },
                 tooltip: {
-                  show:true,
-                  content: "데이터 : %yL"
+                    show:true,
+                    content: "섭취량 : %yL<br /> 날짜 : %x"
                 },
                 lines : {
                     fill : false,
@@ -949,7 +894,7 @@
         function _Line_Chart_8_update(_data) {
             const dataset = _data.pay_load.dataset
 
-            $.plot('#Line_Chart_8', [dataset['daily_1building'],dataset['daily_2building'],dataset['daily_3building']], {
+            $.plot('#Line_Chart_8', [dataset['throughput'],], {
                 grid  : {
                     hoverable  : true,
                     borderColor: '#f3f3f3',
@@ -965,10 +910,6 @@
                         show: false
                     }
                 },
-                tooltip: {
-                  show:true,
-                  content: "데이터 : %yL"
-                },
                 lines : {
                     fill : false,
                     color: ['#3c8dbc', '#f56954']
@@ -982,7 +923,8 @@
                     show: true
                 }
             })
-        }
+        }       
+
 
         Get_Line_Chart_9_Data()
 
@@ -1003,7 +945,7 @@
         function _Line_Chart_9_update(_data) {
             const dataset = _data.pay_load.dataset
 
-            $.plot('#Line_Chart_9', [dataset['daily_4building']], {
+            $.plot('#Line_Chart_9', [dataset['daily_5building']], {
                 grid  : {
                     hoverable  : true,
                     borderColor: '#f3f3f3',
@@ -1086,7 +1028,13 @@
                     show: true
                 }
             })
-        }       
+        }               
+
+
+
+
+
+
 
 
         Get_Line_Chart_11_Data()
@@ -1108,7 +1056,7 @@
         function _Line_Chart_11_update(_data) {
             const dataset = _data.pay_load.dataset
 
-            $.plot('#Line_Chart_11', [dataset['daily_5building']], {
+            $.plot('#Line_Chart_11', [dataset['daily_1building'],dataset['daily_2building'],dataset['daily_3building']], {
                 grid  : {
                     hoverable  : true,
                     borderColor: '#f3f3f3',
@@ -1125,8 +1073,8 @@
                     }
                 },
                 tooltip: {
-                    show:true,
-                    content: "섭취량 : %yL<br /> 날짜 : %x"
+                show:true,
+                content: "데이터 : %yL"
                 },
                 lines : {
                     fill : false,
@@ -1162,7 +1110,7 @@
         function _Line_Chart_12_update(_data) {
             const dataset = _data.pay_load.dataset
 
-            $.plot('#Line_Chart_12', [dataset['throughput'],], {
+            $.plot('#Line_Chart_12', [dataset['daily_1building'],dataset['daily_2building'],dataset['daily_3building']], {
                 grid  : {
                     hoverable  : true,
                     borderColor: '#f3f3f3',
@@ -1178,6 +1126,10 @@
                         show: false
                     }
                 },
+                tooltip: {
+                show:true,
+                content: "데이터 : %yL"
+                },
                 lines : {
                     fill : false,
                     color: ['#3c8dbc', '#f56954']
@@ -1191,44 +1143,69 @@
                     show: true
                 }
             })
-        }               
-
-        Get_bar_chart_22_Data()
-
-        function Get_bar_chart_22_Data() {
-            $.ajaxSetup({ cache: false });
-            $.ajax({
-                url: "../conf/Ajax_bar_chart_22_.data.php",
-                dataType: 'json',
-                success: function (data) {
-                    _bar_chart_22_update(data)
-                },
-                error: function () {
-                    // setTimeout(GetData, updateInterval);
-                }
-            });
-        }
-
-        function _bar_chart_22_update(_data) {
-            const dataset = _data.pay_load.dataset
-
-            $.plot('#bar_chart_22', [dataset['watertank']], {
-                grid  : {
-                    borderWidth: 1,
-                    borderColor: '#f3f3f3',
-                    tickColor  : '#f3f3f3'
-                },
-                series: {
-                    bars: {
-                        show: true, barWidth: 0.5, align: 'center',
-                    },
-                },
-                colors: ['#3c8dbc'],
-                xaxis : {
-                    ticks: _data.pay_load.create_at,
-                }
-            })
         }
 
     });
 </script>
+
+
+<?php
+    $sql = "select * from water.control_data where address=99999999 order by create_at desc limit 1";
+    $result = mysqli_query($conn, $sql);
+    $row1 = mysqli_fetch_array($result);
+
+    $relay1 = !$row1['relay1'] && "" ? 0 : $row1['relay1'];
+
+
+    if ($relay1 == 1) {
+        $do_str_1 = "작동중";
+        $do_css_1 = "bg-gradient-primary";
+        $do_checked_1 = "checked";
+    } else if ($relay1 == 0) {
+        $do_str_1 = "정지";
+        $do_css_1 = "bg-gradient-danger";
+        $do_checked_1 = "";
+    } else {
+        $do_str_1 = "정지";
+        $do_css_1 = "bg-gradient-danger";
+        $do_checked_1 = "";
+    }
+
+    $sql = "select * from water.control_data where address=99999999 order by create_at desc limit 1";
+    $result = mysqli_query($conn, $sql);
+    $row2 = mysqli_fetch_array($result);
+
+    $relay2 = !$row2['relay2'] && "" ? 0 : $row2['relay2'];
+
+
+    if ($relay2 == 1) {
+        $do_str_2 = "작동중";
+        $do_css_2 = "bg-gradient-primary";
+        $do_checked_2 = "checked";
+    } else if ($relay2 == 0) {
+        $do_str_2 = "정지";
+        $do_css_2 = "bg-gradient-danger";
+        $do_checked_2 = "";
+    } else {
+        $do_str_2 = "정지";
+        $do_css_2 = "bg-gradient-danger";
+        $do_checked_2 = "";
+    }
+?>
+
+<?php
+    $sql1 = "select *, 
+            round(1.8 * data1 + 32 -0.55*(1-data2/100)*(1.8*data1-26),0) as data8 
+            from water.raw_data 
+            where address = 509 and board_number=3 
+            order by create_at 
+            desc limit 1";
+
+    $result1 = mysqli_query($conn, $sql1);
+    $rowline1 = mysqli_fetch_array($result1);
+
+//    echo $row['data1'];
+//    echo $row['tds_out'];
+//    echo $row['pressure_in'];
+//    echo $row['pressure_out'];
+?>
