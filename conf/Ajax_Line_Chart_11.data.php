@@ -2,12 +2,14 @@
 include_once "../connect.php";
 
 $query = "
-SELECT idx, create_at, date_format(create_at, \"%m-%d\") as DF,
-    (MAX(IF(board_number=2, data3, NULL)) - MIN(IF(board_number=2, data3, NULL)) )*10 as daily_1building,
-    (MAX(IF(board_number=2, data4, NULL)) - MIN(IF(board_number=2, data4, NULL)) )*10 as daily_2building,
-    (MAX(IF(board_number=3, data3, NULL)) - MIN(IF(board_number=3, data3, NULL)) )*10 as daily_3building
-FROM water.raw_data
-WHERE create_at >= \"2023-12-12\" and create_at < current_date()
+SELECT idx, created_at, date_format(created_at, \"%m-%d\") as DF,
+    (MAX(IF(board_number=17, data1, NULL)) - MIN(IF(board_number=17, data1, NULL)) ) as daily_1building,
+    (MAX(IF(board_number=18 , data1, NULL)) - MIN(IF(board_number=18 , data1, NULL)) ) as daily_2building,
+    (MAX(IF(board_number=19 , data1, NULL)) - MIN(IF(board_number=19 , data1, NULL)) ) as daily_3building,
+    (MAX(IF(board_number=3 , data1, NULL)) - MIN(IF(board_number=3 , data1, NULL)) ) as daily_4building,
+    (MAX(IF(board_number=4 , data1, NULL)) - MIN(IF(board_number=4 , data1, NULL)) ) as daily_5building
+FROM upa.raw_data
+WHERE address= 2300 and created_at >= \"2024-1-4\" and created_at < now()
 group by DF
 ORDER BY idx asc;
     "; 
@@ -30,12 +32,16 @@ while($row = mysqli_fetch_array($result))
 $daily_1building_arr = array();
 $daily_2building_arr = array();
 $daily_3building_arr = array();
+$daily_4building_arr = array();
+$daily_5building_arr = array();
 $create_at_arr = array();
 
 foreach ($rows as $k => $v) {
     array_push($daily_1building_arr, array($k, ($v['daily_1building'])));
     array_push($daily_2building_arr, array($k, ($v['daily_2building'])));
     array_push($daily_3building_arr, array($k, ($v['daily_3building'])));
+    array_push($daily_4building_arr, array($k, ($v['daily_4building'])));
+    array_push($daily_5building_arr, array($k, ($v['daily_5building'])));
     array_push($create_at_arr, array($k, substr($v['DF'],0,5)));
 }
 
@@ -54,13 +60,23 @@ $daily_3building = array(
     'color'=>'#00ff00',
 );
 
+$daily_4building = array(
+    'data' => $daily_4building_arr,
+    'color'=>'#00ff00',
+);
+
+$daily_5building = array(
+    'data' => $daily_5building_arr,
+    'color'=>'#00ff00',
+);
+
 //echo "<xmp>";
 //print_r($water_in);
 //echo "</xmp>";
 
 $response = array();
 $response['pay_load']['success'] = "success";
-$response['pay_load']['dataset'] = array('daily_1building'=>$daily_1building, 'daily_2building'=>$daily_2building, 'daily_3building'=>$daily_3building,);
+$response['pay_load']['dataset'] = array('daily_1building'=>$daily_1building, 'daily_2building'=>$daily_2building, 'daily_3building'=>$daily_3building, 'daily_4building'=>$daily_4building, 'daily_5building'=>$daily_5building,);
 $response['pay_load']['create_at'] = $create_at_arr;
 
 echo json_encode($response);

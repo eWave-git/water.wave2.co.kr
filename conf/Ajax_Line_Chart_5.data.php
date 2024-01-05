@@ -3,9 +3,9 @@ include_once "../connect.php";
 
 $query = "
     SELECT idx, created_at, date_format(created_at, \"%m-%d\") as DF,
-        (MAX(IF(board_number=3, data1, NULL)) - MIN(IF(board_number=3, data1, NULL)) ) as daily_3building
+    (MAX(IF(board_number=19, data1, NULL)) - MIN(IF(board_number=19, data1, NULL)) ) as daily_3building
     FROM upa.raw_data
-    WHERE created_at >= \"2023-11-11\" and created_at < current_date() and address = '2300' and board_type = 6
+    WHERE created_at >= \"2024-1-5\" and created_at < now() and address = '2300'
     group by DF
     ORDER BY idx asc;
     "; 

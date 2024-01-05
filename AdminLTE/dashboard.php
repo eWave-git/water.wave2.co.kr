@@ -1056,7 +1056,7 @@
         function _Line_Chart_11_update(_data) {
             const dataset = _data.pay_load.dataset
 
-            $.plot('#Line_Chart_11', [dataset['daily_1building'],dataset['daily_2building'],dataset['daily_3building']], {
+            $.plot('#Line_Chart_11', [dataset['daily_1building'],dataset['daily_2building'],dataset['daily_3building'],dataset['daily_4building'],dataset['daily_5building']], {
                 grid  : {
                     hoverable  : true,
                     borderColor: '#f3f3f3',
@@ -1110,7 +1110,7 @@
         function _Line_Chart_12_update(_data) {
             const dataset = _data.pay_load.dataset
 
-            $.plot('#Line_Chart_12', [dataset['daily_1building'],dataset['daily_2building'],dataset['daily_3building']], {
+            $.plot('#Line_Chart_12', [dataset['daily_1building'],dataset['daily_2building'],dataset['daily_3building'],dataset['daily_4building'],dataset['daily_5building']], {
                 grid  : {
                     hoverable  : true,
                     borderColor: '#f3f3f3',
