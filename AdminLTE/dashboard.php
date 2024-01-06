@@ -898,7 +898,7 @@
         function _Line_Chart_8_update(_data) {
             const dataset = _data.pay_load.dataset
 
-            $.plot('#Line_Chart_8', [dataset['throughput'],], {
+            $.plot('#Line_Chart_8', [dataset['time_in']], {
                 grid  : {
                     hoverable  : true,
                     borderColor: '#f3f3f3',
@@ -1007,7 +1007,7 @@
         function _Line_Chart_10_update(_data) {
             const dataset = _data.pay_load.dataset
 
-            $.plot('#Line_Chart_10', [dataset['throughput'],], {
+            $.plot('#Line_Chart_10', [dataset['time_in']], {
                 grid  : {
                     hoverable  : true,
                     borderColor: '#f3f3f3',

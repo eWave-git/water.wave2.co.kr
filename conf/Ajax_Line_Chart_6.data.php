@@ -2,15 +2,21 @@
 include_once "../connect.php";
 
 $query = "
-    SELECT idx, created_at, 
+    SELECT 
         DATE_FORMAT(created_at, \"%m-%d %H:00\") as DF,
-        (MAX(IF(board_number=19, data1, NULL)) - MIN(IF(board_number=19, data1, NULL)) ) as hour_3building
-    FROM upa.raw_data
-    where created_at < now() and created_at > current_date() - interval 1 day  and address = '2300'
-    group by DF
-    order by idx asc;
-    "; 
+        (MAX(data1) - ifnull(LAG(MAX(data1)) over(order by created_at),data1)) as 'hour_3building'
     
+    FROM upa.raw_data
+    
+    WHERE address = '2300' and board_number= '19' and
+        created_at < now() and created_at > current_date() - interval 1 day 
+    
+    GROUP BY DAY(created_at),FLOOR(HOUR(created_at))
+    
+    ORDER BY idx asc;
+    "; 
+
+
 $result = mysqli_query($conn, $query);
 $rows = array();
 

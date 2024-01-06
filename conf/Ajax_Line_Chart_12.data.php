@@ -2,16 +2,20 @@
 include_once "../connect.php";
 
 $query = "
-SELECT idx, created_at, date_format(created_at, \"%m-%d %H:00\") as DF,
-    (MAX(IF(board_number=17, data1, NULL)) - MIN(IF(board_number=17, data1, NULL)) ) as daily_1building,
-    (MAX(IF(board_number=18 , data1, NULL)) - MIN(IF(board_number=18 , data1, NULL)) ) as daily_2building,
-    (MAX(IF(board_number=19 , data1, NULL)) - MIN(IF(board_number=19 , data1, NULL)) ) as daily_3building,
-    (MAX(IF(board_number=3 , data1, NULL)) - MIN(IF(board_number=3 , data1, NULL)) ) as daily_4building,
-    (MAX(IF(board_number=4 , data1, NULL)) - MIN(IF(board_number=4 , data1, NULL)) ) as daily_5building
-FROM upa.raw_data
-WHERE address= 2300 and created_at >= \"2024-1-5 17:00:00\" and created_at < now()
-group by DF
-ORDER BY idx asc;
+    SELECT idx, created_at, date_format(created_at, \"%m-%d %H:00\") as DF,
+        (MAX(IF(board_number=17, data1, NULL)) - MIN(IF(board_number=17, data1, NULL)) ) as daily_1building,
+        (MAX(IF(board_number=18 , data1, NULL)) - MIN(IF(board_number=18 , data1, NULL)) ) as daily_2building,
+        (MAX(IF(board_number=19 , data1, NULL)) - MIN(IF(board_number=19 , data1, NULL)) ) as daily_3building,
+        (MAX(IF(board_number=3 , data1, NULL)) - MIN(IF(board_number=3 , data1, NULL)) ) as daily_4building,
+        (MAX(IF(board_number=4 , data1, NULL)) - MIN(IF(board_number=4 , data1, NULL)) ) as daily_5building
+
+    FROM upa.raw_data
+
+    WHERE address= 2300 and
+        created_at < now() and created_at > current_date() - interval 1 day 
+
+    GROUP BY DAY(created_at),FLOOR(HOUR(created_at))
+    ORDER BY idx asc;
     "; 
 //create_at >= now() - INTERVAL 30 minute
 $result = mysqli_query($conn, $query);
