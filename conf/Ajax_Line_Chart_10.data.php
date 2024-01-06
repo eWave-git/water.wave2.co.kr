@@ -29,7 +29,7 @@ foreach ($rows as $k => $v) {
 
 $throughput = array(
     'data' => $throughput_arr,
-    'color'=>'#3c8dbc',
+    'color'=>'#9d00ff',
 );
 
 $response = array();

@@ -35,7 +35,7 @@ foreach ($rows as $k => $v) {
 
 $daily_3building = array(
     'data' => $daily_3building_arr,
-    'color'=>'#00ff00',
+    'color'=>'#00ff3b',
 );
 
 //echo "<xmp>";

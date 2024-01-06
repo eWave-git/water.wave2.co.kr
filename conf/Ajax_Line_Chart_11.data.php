@@ -52,22 +52,22 @@ $daily_1building = array(
 
 $daily_2building = array(
     'data' => $daily_2building_arr,
-    'color'=>'#000000',
+    'color'=>'#ff6600',
 );
 
 $daily_3building = array(
     'data' => $daily_3building_arr,
-    'color'=>'#00ff00',
+    'color'=>'#00ff3b',
 );
 
 $daily_4building = array(
     'data' => $daily_4building_arr,
-    'color'=>'#00ff00',
+    'color'=>'#0004ff',
 );
 
 $daily_5building = array(
     'data' => $daily_5building_arr,
-    'color'=>'#00ff00',
+    'color'=>'#9d00ff',
 );
 
 //echo "<xmp>";

@@ -534,7 +534,7 @@
                 },
                 tooltip: {
                   show:true,
-                  content: "양 : %yL <br /> 날짜 : %x"
+                  content: "음수 : %yL <br /> 날짜 : %x"
                 },
                 lines : {
                     fill : false,
@@ -589,7 +589,7 @@
                 },
                 tooltip: {
                     show:true,
-                    content: "섭취량 : %yL<br /> 시간 : %x"
+                    content: "음수 : %yL<br /> 시간 : %x"
                 },
                 lines : {
                     fill : false,
@@ -643,7 +643,7 @@
                 },
                 tooltip: {
                     show:true,
-                    content: "섭취량 : %yL<br /> 날짜 : %x"
+                    content: "음수 : %yL <br /> 날짜 : %x"
                 },
                 lines : {
                     fill : false,
@@ -697,7 +697,7 @@
                 },
                 tooltip: {
                     show:true,
-                    content: "섭취량 : %yL<br /> 시간 : %x"
+                    content: "음수 : %yL<br /> 시간 : %x"
                 },
                 lines : {
                     fill : false,
@@ -752,7 +752,7 @@
                 },
                 tooltip: {
                     show:true,
-                    content: "섭취량 : %yL<br /> 날짜 : %x"
+                    content: "음수 : %yL <br /> 날짜 : %x"
                 },
                 lines : {
                     fill : false,
@@ -803,6 +803,10 @@
                     points    : {
                         show: false
                     }
+                },
+                tooltip: {
+                    show:true,
+                    content: "음수 : %yL<br /> 시간 : %x"
                 },
                 lines : {
                     fill : false,
@@ -858,7 +862,7 @@
                 },
                 tooltip: {
                     show:true,
-                    content: "섭취량 : %yL<br /> 날짜 : %x"
+                    content: "음수 : %yL<br /> 날짜 : %x"
                 },
                 lines : {
                     fill : false,
@@ -909,6 +913,10 @@
                     points    : {
                         show: false
                     }
+                },
+                tooltip: {
+                    show:true,
+                    content: "음수 : %yL<br /> 시간 : %x"
                 },
                 lines : {
                     fill : false,
@@ -963,7 +971,7 @@
                 },
                 tooltip: {
                     show:true,
-                    content: "섭취량 : %yL<br /> 날짜 : %x"
+                    content: "음수 : %yL<br /> 날짜 : %x"
                 },
                 lines : {
                     fill : false,
@@ -1014,6 +1022,10 @@
                     points    : {
                         show: false
                     }
+                },
+                tooltip: {
+                    show:true,
+                    content: "음수 : %yL<br /> 시간 : %x"
                 },
                 lines : {
                     fill : false,
@@ -1073,8 +1085,8 @@
                     }
                 },
                 tooltip: {
-                show:true,
-                content: "데이터 : %yL"
+                    show:true,
+                    content: "음수 : %yL "
                 },
                 lines : {
                     fill : false,
@@ -1128,7 +1140,7 @@
                 },
                 tooltip: {
                 show:true,
-                content: "데이터 : %yL"
+                content: "음수 : %yL"
                 },
                 lines : {
                     fill : false,

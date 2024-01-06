@@ -30,7 +30,7 @@ foreach ($rows as $k => $v) {
 
 $time_in = array(
     'data' => $time_in_arr,
-    'color'=>'#3c8dbc',
+    'color'=>'#00ff3b',
 );
 
 $response = array();

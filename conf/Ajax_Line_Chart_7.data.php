@@ -35,7 +35,7 @@ foreach ($rows as $k => $v) {
 
 $daily_4building = array(
     'data' => $daily_4building_arr,
-    'color'=>'#3c8dbc',
+    'color'=>'#0004ff',
 );
 
 
