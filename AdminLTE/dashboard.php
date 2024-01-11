@@ -9,6 +9,7 @@
 //    echo $row['pressure_out'];
 ?>
 
+
 <section class="content">
     <div class="container-fluid">
     <h4>외부 온습도</h4>
