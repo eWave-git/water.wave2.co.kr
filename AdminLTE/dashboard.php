@@ -1,8 +1,17 @@
+<?php
+    $sql1 = "select * from upa.raw_data where address = 2300 and board_number=22 order by created_at desc limit 1";
+    $result1 = mysqli_query($conn, $sql1);
+    $rowline1 = mysqli_fetch_array($result1);
 
+//    echo $row['data1'];
+//    echo $row['tds_out'];
+//    echo $row['pressure_in'];
+//    echo $row['pressure_out'];
+?>
 
 <section class="content">
     <div class="container-fluid">
-    <h4>물탱크실 온습도 측정 : 겨울철 대비</h4>
+    <h4>외부 온습도</h4>
         <div class="row">
             <div class="col-lg-6 col-12">
                 <div class="info-box bg-info">
@@ -13,7 +22,7 @@
                         <span class="info-box-number"><?php echo $rowline1['data1'];?> °C</span>
 
                         <div class="progress">
-                            <div class="progress-bar" style="width: <?php echo $rowline1['data1'];?>%"></div>
+                        <div class="progress-bar" style="width: <?php echo $rowline1['data1'];?>%"></div>
                         </div>
                         <span class="progress-description">
                             조회 시점 : <?php echo substr($rowline1['create_at'],5,11);?> <!-- ($row['create_at'],11,8) -->
@@ -32,7 +41,7 @@
                         <span class="info-box-number"><?php echo $rowline1['data2'];?> %</span>
 
                         <div class="progress">
-                            <div class="progress-bar" style="width: <?php echo $rowline1['data2'];?>%"></div>
+                        <div class="progress-bar" style="width: <?php echo $rowline1['data2'];?>%"></div>
                         </div>
                         <span class="progress-description">
                             조회 시점 : <?php echo substr($rowline1['create_at'],5,11);?>
