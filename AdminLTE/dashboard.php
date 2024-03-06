@@ -335,10 +335,10 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-lg-6 col-sm-12">
+                            <!-- <div class="row">
+                                <div class="col-lg-6 col-sm-12"> -->
                                     <!-- Line chart -->
-                                    <div class="card card-primary card-outline">
+                                    <!-- <div class="card card-primary card-outline">
                                         <div class="card-header">
                                             <h3 class="card-title">
                                                 <i class="far fa-chart-bar"></i>
@@ -358,11 +358,11 @@
                                             <div id="Line_Chart_11" style="height: 300px;"></div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
 
-                                <div class="col-lg-6 col-sm-12">
+                                <!-- <div class="col-lg-6 col-sm-12"> -->
                                     <!-- Line chart -->
-                                    <div class="card card-primary card-outline">
+                                    <!-- <div class="card card-primary card-outline">
                                         <div class="card-header">
                                             <h3 class="card-title">
                                                 <i class="far fa-chart-bar"></i>
@@ -383,39 +383,10 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="row">    
-                                <div class="col-lg-2 col-sm-12">
-                                    <!-- Bootstrap Switch -->
-                                    <div class="card card-secondary">
-                                        <div class="card-header">
-                                            <h3 class="card-title">relay1</h3>
-                                            <button type="button" name="control_button_1" class="btn btn-block <?php echo $do_css_1;?> btn-flat btn-sm" style="user-select: auto;"><?php echo $do_str_1;?></button>
-                                        </div>
-                                        <div class="card-body">
-                                            <input type="checkbox" name="control_checkbox_1" <?php echo $do_checked_1;?> data-bootstrap-switch>
 
-                                        </div>
-                                    </div>
-                                    <!-- /.card -->
-                                </div>
-
-                                <div class="col-lg-2 col-sm-12">
-                                    <!-- Bootstrap Switch -->
-                                    <div class="card card-secondary">
-                                        <div class="card-header">
-                                            <h3 class="card-title">relay2</h3>
-                                            <button type="button" name="control_button_2" class="btn btn-block <?php echo $do_css_2;?> btn-flat btn-sm" style="user-select: auto;"><?php echo $do_str_2;?></button>
-                                        </div>
-                                        <div class="card-body">
-                                            <input type="checkbox" name="control_checkbox_2" <?php echo $do_checked_2;?> data-bootstrap-switch>
-
-                                        </div>
-                                    </div>
-                                    <!-- /.card -->
-                                </div>
-                            </div>
+         
                         </div>
 
                         <!-- 2번 탭 -->
@@ -1169,65 +1140,3 @@
 
     });
 </script>
-
-
-<?php
-    $sql = "select * from water.control_data where address=99999999 order by create_at desc limit 1";
-    $result = mysqli_query($conn, $sql);
-    $row1 = mysqli_fetch_array($result);
-
-    $relay1 = !$row1['relay1'] && "" ? 0 : $row1['relay1'];
-
-
-    if ($relay1 == 1) {
-        $do_str_1 = "작동중";
-        $do_css_1 = "bg-gradient-primary";
-        $do_checked_1 = "checked";
-    } else if ($relay1 == 0) {
-        $do_str_1 = "정지";
-        $do_css_1 = "bg-gradient-danger";
-        $do_checked_1 = "";
-    } else {
-        $do_str_1 = "정지";
-        $do_css_1 = "bg-gradient-danger";
-        $do_checked_1 = "";
-    }
-
-    $sql = "select * from water.control_data where address=99999999 order by create_at desc limit 1";
-    $result = mysqli_query($conn, $sql);
-    $row2 = mysqli_fetch_array($result);
-
-    $relay2 = !$row2['relay2'] && "" ? 0 : $row2['relay2'];
-
-
-    if ($relay2 == 1) {
-        $do_str_2 = "작동중";
-        $do_css_2 = "bg-gradient-primary";
-        $do_checked_2 = "checked";
-    } else if ($relay2 == 0) {
-        $do_str_2 = "정지";
-        $do_css_2 = "bg-gradient-danger";
-        $do_checked_2 = "";
-    } else {
-        $do_str_2 = "정지";
-        $do_css_2 = "bg-gradient-danger";
-        $do_checked_2 = "";
-    }
-?>
-
-<?php
-    $sql1 = "select *, 
-            round(1.8 * data1 + 32 -0.55*(1-data2/100)*(1.8*data1-26),0) as data8 
-            from water.raw_data 
-            where address = 509 and board_number=3 
-            order by create_at 
-            desc limit 1";
-
-    $result1 = mysqli_query($conn, $sql1);
-    $rowline1 = mysqli_fetch_array($result1);
-
-//    echo $row['data1'];
-//    echo $row['tds_out'];
-//    echo $row['pressure_in'];
-//    echo $row['pressure_out'];
-?>

@@ -5,8 +5,7 @@ $query = "
 SELECT idx, created_at, date_format(created_at, \"%m-%d\") as DF,
     (MAX(IF(board_number=17, data1, NULL)) - MIN(IF(board_number=17, data1, NULL)) ) as daily_1building
 FROM upa.raw_data
-WHERE address = '2300' and 
-    created_at >= \"2024-2-12\" and created_at < now()-1 
+WHERE address = '2300' and created_at >= now() - interval 7 day
 group by DF
 ORDER BY idx asc;
 "; 
@@ -52,3 +51,5 @@ $response['pay_load']['create_at'] = $create_at_arr;
 echo json_encode($response);
 
 ?>
+
+<!-- WHERE address = '2300' and created_at >= \"2024-2-25\" and created_at < now() -->
