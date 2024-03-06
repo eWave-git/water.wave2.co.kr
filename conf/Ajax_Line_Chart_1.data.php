@@ -51,5 +51,3 @@ $response['pay_load']['create_at'] = $create_at_arr;
 echo json_encode($response);
 
 ?>
-
-<!-- WHERE address = '2300' and created_at >= \"2024-2-25\" and created_at < now() -->
