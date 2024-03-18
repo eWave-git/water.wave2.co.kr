@@ -5,7 +5,7 @@ $query = "
     SELECT idx, created_at, date_format(created_at, \"%m-%d\") as DF,
         (MAX(IF(board_number=3, data1, NULL)) - MIN(IF(board_number=3, data1, NULL)) ) as daily_4building
     FROM upa.raw_data
-    WHERE  address = '2300' and created_at >= now() - interval 15 day
+    WHERE  address = '2300' and created_at >= now() - interval 30 day
     group by DF
     ORDER BY idx asc;
     "; 
